@@ -3,11 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Table
-  - TP_Ball
-  - Ground
-  - Pin
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -37,10 +33,10 @@ TagManager:
   - 
   - 
   - 
-  - HandPlayer
-  - Hand
-  - Grabbable
-  - Grabbing
+  - 
+  - 
+  - 
+  - 
   m_SortingLayers:
   - name: Default
     uniqueID: 0
