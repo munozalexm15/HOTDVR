@@ -407,7 +407,7 @@ GameObject:
   - component: {fileID: 8781582381492025649}
   - component: {fileID: 2092892512369469954}
   m_Layer: 0
-  m_Name: PistolHold
+  m_Name: Right Hand Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
