@@ -26,6 +26,7 @@ public class GrabPose_Handler : MonoBehaviour
     {
         XRGrabInteractable grabInteractable = GetComponent<XRGrabInteractable>();
         grabInteractable.selectEntered.AddListener(SetupPose);
+        grabInteractable.selectExited.AddListener(UnSetPose);
 
         rightHandPose.gameObject.SetActive(false);
         leftHandPose.gameObject.SetActive(false);
@@ -41,14 +42,14 @@ public class GrabPose_Handler : MonoBehaviour
 
             if (handData.modelType == HandData.HandModelType.RIGHT)
             {
+                Debug.Log("GRAB right");
                 SetHandDataValues(handData, rightHandPose);
             }
             else
             {
+                Debug.Log("GRAB left");
                 SetHandDataValues(handData, leftHandPose);
             }
-
-            SetHandDataValues(handData, rightHandPose);
 
            StartCoroutine( setHandDataCoRoutine(handData, endingHandPosition, endingHandRotation, endingFingerRotations, startingHandPosition, startingHandRotation, startingFingerRotations));
         }
@@ -71,8 +72,8 @@ public class GrabPose_Handler : MonoBehaviour
     //IMPORTANTE MANTENER EL ORDEN DE LOS HUESOS EN EL QUE SE AÑADEN A LA LISTA DE HANDDATA
     public void SetHandDataValues(HandData h1, HandData h2)
     {
-        startingHandPosition = h1.root.localPosition;
-        endingHandPosition = h2.root.localPosition;
+        startingHandPosition = new Vector3(h1.root.localPosition.x * h1.root.localScale.x, h1.root.localPosition.y * h1.root.localScale.y, h1.root.localPosition.z * h1.root.localScale.z);
+        endingHandPosition = new Vector3(h2.root.localPosition.x * h2.root.localScale.x, h2.root.localPosition.y * h2.root.localScale.y, h2.root.localPosition.z * h2.root.localScale.z);
 
         startingHandRotation = h1.root.localRotation;
         endingHandRotation = h2.root.localRotation;
