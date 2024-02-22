@@ -42,12 +42,10 @@ public class GrabPose_Handler : MonoBehaviour
 
             if (handData.modelType == HandData.HandModelType.RIGHT)
             {
-                Debug.Log("GRAB right");
                 SetHandDataValues(handData, rightHandPose);
             }
             else
             {
-                Debug.Log("GRAB left");
                 SetHandDataValues(handData, leftHandPose);
             }
 
