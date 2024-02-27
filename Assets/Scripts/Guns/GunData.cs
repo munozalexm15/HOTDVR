@@ -11,6 +11,8 @@ public class GunData : MonoBehaviour
     public float reloadTime;
     public float accuracy;
 
+    public float damage;
+
     public string EjectAnimation;
     public AnimationClip RightHandTriggerPull;
     public AnimationClip LeftHandTriggerPull;

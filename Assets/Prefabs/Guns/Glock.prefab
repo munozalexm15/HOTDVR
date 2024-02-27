@@ -2584,6 +2584,7 @@ MonoBehaviour:
   rightHandPose: {fileID: 2638022009944910120}
   leftHandPose: {fileID: 5791961359885570875}
   handPoseTransitionDuration: 0.2
+  actualHand: 
 --- !u!65 &6387639597638150796
 BoxCollider:
   m_ObjectHideFlags: 0
