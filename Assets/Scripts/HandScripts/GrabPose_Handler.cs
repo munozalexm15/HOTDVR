@@ -22,6 +22,8 @@ public class GrabPose_Handler : MonoBehaviour
     private Quaternion[] startingFingerRotations;
     private Quaternion[]  endingFingerRotations;
 
+    public string actualHand = null;
+
     void Start()
     {
         XRGrabInteractable grabInteractable = GetComponent<XRGrabInteractable>();
@@ -43,9 +45,11 @@ public class GrabPose_Handler : MonoBehaviour
             if (handData.modelType == HandData.HandModelType.RIGHT)
             {
                 SetHandDataValues(handData, rightHandPose);
+                actualHand = "RIGHT";
             }
             else
             {
+                actualHand = "LEFT";
                 SetHandDataValues(handData, leftHandPose);
             }
 
