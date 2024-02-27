@@ -21,8 +21,9 @@ public class GrabPose_Handler : MonoBehaviour
 
     private Quaternion[] startingFingerRotations;
     private Quaternion[]  endingFingerRotations;
-
-    public string actualHand = null;
+    
+    [HideInInspector]
+    public string actualHand = "";
 
     void Start()
     {

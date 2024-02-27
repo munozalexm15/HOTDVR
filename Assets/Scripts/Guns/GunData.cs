@@ -14,6 +14,6 @@ public class GunData : MonoBehaviour
     public float damage;
 
     public string EjectAnimation;
-    public AnimationClip RightHandTriggerPull;
-    public AnimationClip LeftHandTriggerPull;
+    public string RightHandTriggerPull;
+    public string LeftHandTriggerPull;
 }

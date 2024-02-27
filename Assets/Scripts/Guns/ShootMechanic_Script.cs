@@ -9,16 +9,19 @@ public class ShootMechanic_Script : MonoBehaviour
     // Start is called before the first frame update
 
     public GameObject bulletModel;
-
     public Transform spawnPoint;
 
     private GunData gunData;
-
     public Animation gunAnimations;
 
     public ParticleSystem BulletEjectParticle;
-
     public ParticleSystem muzzleFlashParticle;
+
+    //Not the hands in the prefab, but the ones being controlled in the main XR locomotion system
+    public HandData rightHandPose_XR;
+    public HandData leftHandPose_XR;
+
+    private string actualHand;
     void Start()
     {
         
@@ -26,22 +29,32 @@ public class ShootMechanic_Script : MonoBehaviour
         grabbable.activated.AddListener(FireBullet);
 
         gunData = GetComponent<GunData>();
-        //gunAnimations.AddClip(gunData.RightHandTriggerPull, "RightHandTriggerPull");
-        //gunAnimations.AddClip(gunData.LeftHandTriggerPull, "LeftHandTriggerPull");
+        actualHand = GetComponent<GrabPose_Handler>().actualHand;
     }
 
     public void FireBullet(ActivateEventArgs args)
     {
+        actualHand = GetComponent<GrabPose_Handler>().actualHand;
         //Actually made for a semi-auto weapon, it might change later if we implement full auto weapons
 
         GameObject spawnedBullet = Instantiate(bulletModel);
         spawnedBullet.transform.position = spawnPoint.position;
         spawnedBullet.GetComponent<Rigidbody>().velocity = spawnPoint.forward * gunData.bulletSpeed;
-        gunAnimations.Play(gunData.EjectAnimation);
 
-        //find hand_data component in children and, depending of which hand is grabbing the gun, play one animation or another
+        if (actualHand.Equals("LEFT"))
+        {
+            leftHandPose_XR.GetComponent<Animation>().Play(gunData.LeftHandTriggerPull);
+        }
 
-       
+        else if (actualHand.Equals("RIGHT"))
+        {
+            rightHandPose_XR.GetComponent<Animation>().Play(gunData.RightHandTriggerPull);
+
+        }
+
+        gunAnimations.PlayQueued(gunData.EjectAnimation);
+
+
         BulletEjectParticle.Emit(1);
         muzzleFlashParticle.Emit(1);
         Destroy(spawnedBullet, 3);
