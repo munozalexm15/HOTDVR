@@ -9,7 +9,6 @@ using static HandData;
 
 public class ShootMechanic_Script : MonoBehaviour
 {
-    // Start is called before the first frame update
 
     public GameObject bulletModel;
     public Transform spawnPoint;
@@ -34,6 +33,10 @@ public class ShootMechanic_Script : MonoBehaviour
     private string actualHand;
 
     public TMP_Text weaponAmmoIndicator;
+
+    //private Transform crosshairStarterSize;
+
+    //public Vector3 crosshairSize;
     void Start()
     {
         
@@ -45,9 +48,16 @@ public class ShootMechanic_Script : MonoBehaviour
         gunData = GetComponent<GunData>();
         actualHand = GetComponent<GrabPose_Handler>().actualHand;
 
+        //crosshairStarterSize.localScale = crosshairSize;
+
     }
 
- 
+    void Update()
+    {
+        Crosshair_ResetSize();
+    }
+
+
     public void FireBullet(ActivateEventArgs args)
     {
         if (gunData.isReloading)
@@ -59,10 +69,6 @@ public class ShootMechanic_Script : MonoBehaviour
         {
             StartCoroutine(reloadWeapon());
             return;
-        }
-        else
-        {
-            weaponAmmoIndicator.SetText(gunData.bulletsInMagazine + " / " + gunData.bulletsPerMagazine);
         }
 
         actualHand = GetComponent<GrabPose_Handler>().actualHand;
@@ -80,7 +86,6 @@ public class ShootMechanic_Script : MonoBehaviour
         else if (actualHand.Equals("RIGHT"))
         {
             rightHandPose_XR.GetComponent<Animation>().Play(gunData.RightHandTriggerPull);
-
         }
 
         gunAnimations.PlayQueued(gunData.EjectAnimation);
@@ -89,12 +94,15 @@ public class ShootMechanic_Script : MonoBehaviour
         muzzleFlashParticle.Emit(1);
         gunData.bulletsInMagazine -= 1;
 
+        Crosshair_MakeBigger();
+
+        weaponAmmoIndicator.SetText(gunData.bulletsInMagazine + " / " + gunData.bulletsPerMagazine);
+
         StartCoroutine(checkBulletStatus(spawnedBullet));
     }
 
     public IEnumerator reloadWeapon()
     {
-
         float lerp = Mathf.PingPong(Time.time, gunData.reloadTime) / gunData.reloadTime;
         gunData.isReloading = true;
         weaponAmmoIndicator.SetText("Rel");
@@ -130,7 +138,6 @@ public class ShootMechanic_Script : MonoBehaviour
         {
             StartCoroutine(reloadWeapon());
         }
-
     }
 
 
@@ -147,6 +154,18 @@ public class ShootMechanic_Script : MonoBehaviour
         {
             Destroy(spawnedBullet);
         }
+    }
 
+    public void Crosshair_MakeBigger()
+    {
+        //crosshairSize += new Vector3(0.1f, 0.1f, 0.1f);
+    }
+
+    public void Crosshair_ResetSize()
+    {
+        //if (crosshairSize.x > crosshairStarterSize.localScale.x)
+        {
+            //crosshairSize -= new Vector3(0.01f, 0.01f, 0.01f);
+        }
     }
 }

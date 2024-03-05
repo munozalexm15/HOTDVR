@@ -6,25 +6,37 @@ using UnityEngine;
 
 public class Crosshair_Mechanic : MonoBehaviour
 {
-    // Start is called before the first frame update
+    RaycastHit crosshairRay;
+
+    [SerializeField] GameObject crosshair;
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
-        {
-            Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-            RaycastHit hit;
+        Ray ray = new Ray(transform.position, transform.forward);
+        RaycastHit hitData;
 
-            if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hitData, 6))
+        {
+
+            if (hitData.transform.gameObject.layer == 7)
             {
-                Debug.Log(hit.transform.name);
-                Debug.DrawLine(transform.position, hit.transform.position, Color.red);
+                return;
             }
+
+            crosshair.transform.position = new Vector3(hitData.point.x, hitData.point.y, hitData.point.z);
+
+            //If layer is "Behind Crosshair" move it so it stays on top of the gameObject
+            if (hitData.transform.gameObject.layer == 6)
+            {
+                crosshair.transform.position = new Vector3(hitData.point.x -0.1f, hitData.point.y, hitData.point.z - 0.1f);
+            }
+           
         }
     }
 }
