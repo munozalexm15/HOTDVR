@@ -231,8 +231,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   position: {fileID: 285954174}
-  requirementArea: 1
-  requirementTask: 1
+  requirementArea: 0
+  requirementTask: 300
 --- !u!1 &377848457
 GameObject:
   m_ObjectHideFlags: 0
