@@ -34,9 +34,9 @@ public class ShootMechanic_Script : MonoBehaviour
 
     public TMP_Text weaponAmmoIndicator;
 
-    //private Transform crosshairStarterSize;
+    private Transform crosshairStarterSize;
 
-    //public Vector3 crosshairSize;
+    public Vector3 crosshairSize;
     void Start()
     {
         
@@ -65,7 +65,7 @@ public class ShootMechanic_Script : MonoBehaviour
             return;
         }
 
-        if (gunData.bulletsInMagazine <= 0)
+        if (gunData.bulletsInMagazine <= 0 || (rightHandPose_XR.transform.rotation.x >= -90  || leftHandPose_XR.transform.rotation.x >= -90 && gunData.bulletsInMagazine > gunData.bulletsPerMagazine) )
         {
             StartCoroutine(reloadWeapon());
             return;
@@ -138,12 +138,15 @@ public class ShootMechanic_Script : MonoBehaviour
         {
             StartCoroutine(reloadWeapon());
         }
+        crosshairStarterSize.gameObject.SetActive(true);
+
     }
 
 
     private void HideAmmo(SelectExitEventArgs arg0)
     {
         weaponAmmoIndicator.text = "";
+        crosshairStarterSize.gameObject.SetActive(false);
     }
 
     public IEnumerator checkBulletStatus(GameObject spawnedBullet)
@@ -158,14 +161,14 @@ public class ShootMechanic_Script : MonoBehaviour
 
     public void Crosshair_MakeBigger()
     {
-        //crosshairSize += new Vector3(0.1f, 0.1f, 0.1f);
+        crosshairSize += new Vector3(0.1f, 0.1f, 0.1f);
     }
 
     public void Crosshair_ResetSize()
     {
-        //if (crosshairSize.x > crosshairStarterSize.localScale.x)
+        if (crosshairSize.Compare(crosshairStarterSize.localScale, 1))
         {
-            //crosshairSize -= new Vector3(0.01f, 0.01f, 0.01f);
+            crosshairSize -= new Vector3(0.01f, 0.01f, 0.01f);
         }
     }
 }

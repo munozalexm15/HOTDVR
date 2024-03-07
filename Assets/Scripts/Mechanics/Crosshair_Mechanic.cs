@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class Crosshair_Mechanic : MonoBehaviour
 {
-    RaycastHit crosshairRay;
-
     [SerializeField] GameObject crosshair;
 
     void Start()
