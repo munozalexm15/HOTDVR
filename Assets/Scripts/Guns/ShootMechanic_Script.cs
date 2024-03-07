@@ -34,9 +34,8 @@ public class ShootMechanic_Script : MonoBehaviour
 
     public TMP_Text weaponAmmoIndicator;
 
-    private Transform crosshairStarterSize;
+    public Transform crosshairTransform;
 
-    public Vector3 crosshairSize;
     void Start()
     {
         
@@ -47,8 +46,6 @@ public class ShootMechanic_Script : MonoBehaviour
 
         gunData = GetComponent<GunData>();
         actualHand = GetComponent<GrabPose_Handler>().actualHand;
-
-        //crosshairStarterSize.localScale = crosshairSize;
 
     }
 
@@ -64,17 +61,30 @@ public class ShootMechanic_Script : MonoBehaviour
         {
             return;
         }
+        actualHand = GetComponent<GrabPose_Handler>().actualHand;
 
-        if (gunData.bulletsInMagazine <= 0 || (rightHandPose_XR.transform.rotation.x >= -90  || leftHandPose_XR.transform.rotation.x >= -90 && gunData.bulletsInMagazine > gunData.bulletsPerMagazine) )
+        if (gunData.bulletsInMagazine <= 0)
+        {
+            StartCoroutine(reloadWeapon());
+            return;
+        }
+        
+        //Manual Reload (Force player to put the gun in an almost 90 degree angle and press shoot to reload)
+        else if (actualHand == "LEFT" && leftHandPose_XR.transform.rotation.x <= 0.09)
+        {
+            StartCoroutine(reloadWeapon());
+            return;
+        }
+        else if (actualHand == "RIGHT" && rightHandPose_XR.transform.rotation.x <= 0.09)
         {
             StartCoroutine(reloadWeapon());
             return;
         }
 
-        actualHand = GetComponent<GrabPose_Handler>().actualHand;
-        //Actually made for a semi-auto weapon, it might change later if we implement full auto weapons
 
-        GameObject spawnedBullet = Instantiate(bulletModel);
+            //Actually made for a semi-auto weapon, it might change later if we implement full auto weapons
+
+            GameObject spawnedBullet = Instantiate(bulletModel);
         spawnedBullet.transform.position = spawnPoint.position;
         spawnedBullet.GetComponent<Rigidbody>().velocity = spawnPoint.forward * gunData.bulletSpeed;
 
@@ -138,7 +148,7 @@ public class ShootMechanic_Script : MonoBehaviour
         {
             StartCoroutine(reloadWeapon());
         }
-        crosshairStarterSize.gameObject.SetActive(true);
+        crosshairTransform.gameObject.SetActive(true);
 
     }
 
@@ -146,7 +156,7 @@ public class ShootMechanic_Script : MonoBehaviour
     private void HideAmmo(SelectExitEventArgs arg0)
     {
         weaponAmmoIndicator.text = "";
-        crosshairStarterSize.gameObject.SetActive(false);
+        crosshairTransform.gameObject.SetActive(false);
     }
 
     public IEnumerator checkBulletStatus(GameObject spawnedBullet)
@@ -161,14 +171,14 @@ public class ShootMechanic_Script : MonoBehaviour
 
     public void Crosshair_MakeBigger()
     {
-        crosshairSize += new Vector3(0.1f, 0.1f, 0.1f);
+        crosshairTransform.localScale += new Vector3(0.1f, 0.1f, 0.1f);
     }
 
     public void Crosshair_ResetSize()
     {
-        if (crosshairSize.Compare(crosshairStarterSize.localScale, 1))
+        if (crosshairTransform.localScale.x > 0.2)
         {
-            crosshairSize -= new Vector3(0.01f, 0.01f, 0.01f);
+            crosshairTransform.localScale -= new Vector3(0.01f, 0.01f, 0.01f);
         }
     }
 }

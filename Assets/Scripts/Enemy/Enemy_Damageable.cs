@@ -6,6 +6,8 @@ public class Enemy_Damageable : MonoBehaviour
 {
 
     public float Health = 1;
+
+    public PathTracking_Behaviour PlayerPath;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +19,7 @@ public class Enemy_Damageable : MonoBehaviour
     {
         if (Health <= 0)
         {
+            PlayerPath.kills += 1;
             Destroy(gameObject);
         }
     }
