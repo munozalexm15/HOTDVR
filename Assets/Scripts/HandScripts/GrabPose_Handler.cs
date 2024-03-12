@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using System;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -21,8 +22,9 @@ public class GrabPose_Handler : MonoBehaviour
 
     private Quaternion[] startingFingerRotations;
     private Quaternion[]  endingFingerRotations;
-
-    public string actualHand = null;
+    
+    [HideInInspector]
+    public string actualHand = "";
 
     void Start()
     {
