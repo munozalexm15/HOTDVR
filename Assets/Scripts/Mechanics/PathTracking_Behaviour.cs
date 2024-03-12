@@ -37,6 +37,7 @@ public class PathTracking_Behaviour : MonoBehaviour
         speed = 3;
         nextPosIndex = 0;
         nextPosition = positionsData[nextPosIndex];
+        kills = 0;
     }
 
     void Update()
@@ -62,12 +63,10 @@ public class PathTracking_Behaviour : MonoBehaviour
                 timeInPos = nextPosition.requirementTask;
                 isMoving = true;
             }
-
             timeInPos--;
             if (timeInPos <= 0)
             {
                 MoveToNextPos();
-                
             }
         }
     }
@@ -77,7 +76,6 @@ public class PathTracking_Behaviour : MonoBehaviour
         if (kills >= nextPosition.requirementTask)
         {
             MoveToNextPos();
-            kills = 0;
         }
     }
 
@@ -95,6 +93,7 @@ public class PathTracking_Behaviour : MonoBehaviour
             {
                 nextPosition = positionsData[nextPosIndex];
                 isMoving = false;
+                kills = 0;
             }
 
         }

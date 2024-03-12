@@ -11,7 +11,7 @@ public class Enemy_Damageable : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        StartCoroutine(waitToSuicide());
     }
 
     // Update is called once per frame
@@ -22,5 +22,11 @@ public class Enemy_Damageable : MonoBehaviour
             PlayerPath.kills += 1;
             Destroy(gameObject);
         }
+    }
+    IEnumerator waitToSuicide()
+    {
+        yield return new WaitForSeconds(4);
+        PlayerPath.kills += 1;
+        Destroy(gameObject);
     }
 }
