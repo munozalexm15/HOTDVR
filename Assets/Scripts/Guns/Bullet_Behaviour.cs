@@ -8,6 +8,7 @@ public class Bullet_Behaviour : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<Enemy_Damageable>() != null)
         {
+            Debug.Log(collision.gameObject.name);
             collision.gameObject.GetComponent<Enemy_Damageable>().Health  -= 1;
             Destroy(gameObject);
 

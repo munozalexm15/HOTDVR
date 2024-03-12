@@ -65,17 +65,19 @@ public class ShootMechanic_Script : MonoBehaviour
 
         if (gunData.bulletsInMagazine <= 0)
         {
+      
             StartCoroutine(reloadWeapon());
             return;
         }
         
-        //Manual Reload (Force player to put the gun in an almost 90 degree angle and press shoot to reload)
-        else if (actualHand == "LEFT" && leftHandPose_XR.transform.rotation.x <= 0.09)
+        //BUG: Mirar tema de la rotacion del arma o de la mano para que dependa de su rotacion local --- Manual Reload (Force player to put the gun in an almost 90 degree angle and press shoot to reload)
+        else if (actualHand == "LEFT" && gameObject.transform.localRotation.x >= 0.09)
         {
+           
             StartCoroutine(reloadWeapon());
             return;
         }
-        else if (actualHand == "RIGHT" && rightHandPose_XR.transform.rotation.x <= 0.09)
+        else if (actualHand == "RIGHT" && rightHandPose_XR.transform.localRotation.x <= 0.09)
         {
             StartCoroutine(reloadWeapon());
             return;
@@ -113,6 +115,7 @@ public class ShootMechanic_Script : MonoBehaviour
 
     public IEnumerator reloadWeapon()
     {
+        Debug.Log(leftHandPose_XR.transform.rotation);
         float lerp = Mathf.PingPong(Time.time, gunData.reloadTime) / gunData.reloadTime;
         gunData.isReloading = true;
         weaponAmmoIndicator.SetText("Rel");
