@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3990801915192610912}
   - component: {fileID: 6035884878847241751}
   - component: {fileID: 8825598427181899325}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,7 +114,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 86087129073788744}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Pistol_Bullet_Shell
   m_TagString: Untagged
   m_Icon: {fileID: 0}

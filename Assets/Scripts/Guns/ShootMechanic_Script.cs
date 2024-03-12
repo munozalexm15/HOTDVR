@@ -1,52 +1,184 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using static HandData;
 
 public class ShootMechanic_Script : MonoBehaviour
 {
-    // Start is called before the first frame update
 
     public GameObject bulletModel;
-
     public Transform spawnPoint;
 
     private GunData gunData;
-
     public Animation gunAnimations;
 
     public ParticleSystem BulletEjectParticle;
-
     public ParticleSystem muzzleFlashParticle;
+
+    //Not the hands in the prefab, but the ones being controlled in the main XR locomotion system
+    public HandData rightHandPose_XR;
+    public HandData leftHandPose_XR;
+
+    public Material reloadMaterial;
+
+    public Material gunMaterial;
+
+
+    public GameObject[] gunParts;
+
+    private string actualHand;
+
+    public TMP_Text weaponAmmoIndicator;
+
+    public Transform crosshairTransform;
+
     void Start()
     {
         
         XRGrabInteractable grabbable = GetComponent<XRGrabInteractable>();
         grabbable.activated.AddListener(FireBullet);
+        grabbable.selectExited.AddListener(HideAmmo);
+        grabbable.selectEntered.AddListener(ShowAmmo);
 
         gunData = GetComponent<GunData>();
-        //gunAnimations.AddClip(gunData.RightHandTriggerPull, "RightHandTriggerPull");
-        //gunAnimations.AddClip(gunData.LeftHandTriggerPull, "LeftHandTriggerPull");
+        actualHand = GetComponent<GrabPose_Handler>().actualHand;
+
     }
+
+    void Update()
+    {
+        Crosshair_ResetSize();
+    }
+
 
     public void FireBullet(ActivateEventArgs args)
     {
-        //Actually made for a semi-auto weapon, it might change later if we implement full auto weapons
+        if (gunData.isReloading)
+        {
+            return;
+        }
+        actualHand = GetComponent<GrabPose_Handler>().actualHand;
 
-        GameObject spawnedBullet = Instantiate(bulletModel);
+        if (gunData.bulletsInMagazine <= 0)
+        {
+            StartCoroutine(reloadWeapon());
+            return;
+        }
+        
+        //Manual Reload (Force player to put the gun in an almost 90 degree angle and press shoot to reload)
+        else if (actualHand == "LEFT" && leftHandPose_XR.transform.rotation.x <= 0.09)
+        {
+            StartCoroutine(reloadWeapon());
+            return;
+        }
+        else if (actualHand == "RIGHT" && rightHandPose_XR.transform.rotation.x <= 0.09)
+        {
+            StartCoroutine(reloadWeapon());
+            return;
+        }
+
+
+            //Actually made for a semi-auto weapon, it might change later if we implement full auto weapons
+
+            GameObject spawnedBullet = Instantiate(bulletModel);
         spawnedBullet.transform.position = spawnPoint.position;
         spawnedBullet.GetComponent<Rigidbody>().velocity = spawnPoint.forward * gunData.bulletSpeed;
-        gunAnimations.Play(gunData.EjectAnimation);
 
-        //find hand_data component in children and, depending of which hand is grabbing the gun, play one animation or another
+        if (actualHand.Equals("LEFT"))
+        {
+            leftHandPose_XR.GetComponent<Animation>().Play(gunData.LeftHandTriggerPull);
+        }
 
-       
+        else if (actualHand.Equals("RIGHT"))
+        {
+            rightHandPose_XR.GetComponent<Animation>().Play(gunData.RightHandTriggerPull);
+        }
+
+        gunAnimations.PlayQueued(gunData.EjectAnimation);
+
         BulletEjectParticle.Emit(1);
         muzzleFlashParticle.Emit(1);
-        Destroy(spawnedBullet, 3);
+        gunData.bulletsInMagazine -= 1;
+
+        Crosshair_MakeBigger();
+
+        weaponAmmoIndicator.SetText(gunData.bulletsInMagazine + " / " + gunData.bulletsPerMagazine);
+
+        StartCoroutine(checkBulletStatus(spawnedBullet));
+    }
+
+    public IEnumerator reloadWeapon()
+    {
+        float lerp = Mathf.PingPong(Time.time, gunData.reloadTime) / gunData.reloadTime;
+        gunData.isReloading = true;
+        weaponAmmoIndicator.SetText("Rel");
+
+        //GetComponent<Renderer>().material.Lerp(gunMaterial, reloadMaterial, lerp);
+        GetComponent<Renderer>().material = reloadMaterial;
+
+        for (int i = 0; i < gunParts.Length; i++)
+        {
+            gunParts[i].SetActive(false);
+        }
+        //before reload
+        yield return new WaitForSeconds(gunData.reloadTime);
+
+        //after reload
+        //GetComponent<Renderer>().material.Lerp(reloadMaterial, gunMaterial, lerp);
+        GetComponent<Renderer>().material = gunMaterial;
+        
+        for (int i = 0; i < gunParts.Length; i++)
+        {
+            gunParts[i].SetActive(true);
+        }
+
+        gunData.bulletsInMagazine = gunData.bulletsPerMagazine;
+        weaponAmmoIndicator.SetText(gunData.bulletsInMagazine + "  / " + gunData.bulletsPerMagazine);
+        gunData.isReloading = false;
+    }
+
+    private void ShowAmmo(SelectEnterEventArgs arg0)
+    {
+        weaponAmmoIndicator.SetText(gunData.bulletsInMagazine + " / " + gunData.bulletsPerMagazine);
+        if (gunData.bulletsInMagazine <= 0)
+        {
+            StartCoroutine(reloadWeapon());
+        }
+        crosshairTransform.gameObject.SetActive(true);
+
+    }
 
 
+    private void HideAmmo(SelectExitEventArgs arg0)
+    {
+        weaponAmmoIndicator.text = "";
+        crosshairTransform.gameObject.SetActive(false);
+    }
 
+    public IEnumerator checkBulletStatus(GameObject spawnedBullet)
+    {
+        yield return new WaitForSeconds(2);
+
+        if (!spawnedBullet.IsDestroyed())
+        {
+            Destroy(spawnedBullet);
+        }
+    }
+
+    public void Crosshair_MakeBigger()
+    {
+        crosshairTransform.localScale += new Vector3(0.1f, 0.1f, 0.1f);
+    }
+
+    public void Crosshair_ResetSize()
+    {
+        if (crosshairTransform.localScale.x > 0.2)
+        {
+            crosshairTransform.localScale -= new Vector3(0.01f, 0.01f, 0.01f);
+        }
     }
 }
