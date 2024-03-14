@@ -55,8 +55,6 @@ public class ShootMechanic_Script : MonoBehaviour
     void Update()
     {
         Crosshair_ResetSize();
-        Debug.Log(LeftController.transform.localRotation);
-
     }
 
 
