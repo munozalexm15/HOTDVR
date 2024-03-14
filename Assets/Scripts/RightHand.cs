@@ -16,22 +16,21 @@ public class RightHand : MonoBehaviour
     {
         UnityEngine.Debug.Log("Objeto tocado derecha: " + other.gameObject.name);
         _inputData._rightController.TryGetFeatureValue(CommonUsages.deviceVelocity, out Vector3 velocity);
-
-        if (_inputData._rightController.TryGetFeatureValue(CommonUsages.triggerButton, out bool trigger) && _inputData._rightController.TryGetFeatureValue(CommonUsages.gripButton, out bool grip))
+        if(velocity != null)
         {
-            
-            if (trigger && grip)
+            if (_inputData._rightController.TryGetFeatureValue(CommonUsages.triggerButton, out bool trigger) && _inputData._rightController.TryGetFeatureValue(CommonUsages.gripButton, out bool grip))
             {
-                other.attachedRigidbody.AddForce(transform.forward * (velocity.magnitude * 8f), ForceMode.Impulse);
-                UnityEngine.Debug.Log("Fuerza aplicada puño al derecho: " + velocity.magnitude);
+                if (trigger && grip)
+                {
+                    other.attachedRigidbody.AddForce(transform.forward * (velocity.magnitude * 8f), ForceMode.Impulse);
+                    UnityEngine.Debug.Log("Fuerza aplicada puño al derecho: " + velocity.magnitude);
+                }
+                else
+                {
+                    other.attachedRigidbody.AddForce(transform.forward * (velocity.magnitude * 4f), ForceMode.Impulse);
+                    UnityEngine.Debug.Log("Fuerza aplicada al empujar a la derecha: " + velocity.magnitude);
+                }
             }
-            else
-            {
-                other.attachedRigidbody.AddForce(transform.forward * (velocity.magnitude * 4f), ForceMode.Impulse);
-                UnityEngine.Debug.Log("Fuerza aplicada al empujar a la derecha: " + velocity.magnitude);
-            }
-
         }
-        
     }
 }
