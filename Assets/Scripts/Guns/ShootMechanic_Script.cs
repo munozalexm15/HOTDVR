@@ -36,6 +36,9 @@ public class ShootMechanic_Script : MonoBehaviour
 
     public Transform crosshairTransform;
 
+    public ActionBasedController LeftController;
+    public ActionBasedController RightController;
+
     void Start()
     {
         
@@ -52,6 +55,8 @@ public class ShootMechanic_Script : MonoBehaviour
     void Update()
     {
         Crosshair_ResetSize();
+        Debug.Log(LeftController.transform.localRotation);
+
     }
 
 
@@ -70,14 +75,15 @@ public class ShootMechanic_Script : MonoBehaviour
             return;
         }
         
+
         //BUG: Mirar tema de la rotacion del arma o de la mano para que dependa de su rotacion local --- Manual Reload (Force player to put the gun in an almost 90 degree angle and press shoot to reload)
-        else if (actualHand == "LEFT" && gameObject.transform.localRotation.x >= 0.09)
+        else if (actualHand == "LEFT" && LeftController.transform.localRotation.x <= -0.7)
         {
            
             StartCoroutine(reloadWeapon());
             return;
         }
-        else if (actualHand == "RIGHT" && rightHandPose_XR.transform.localRotation.x <= 0.09)
+        else if (actualHand == "RIGHT" && RightController.transform.localRotation.x <= -0.7)
         {
             StartCoroutine(reloadWeapon());
             return;
