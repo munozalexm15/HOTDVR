@@ -9,16 +9,19 @@ public class EnemyAI : MonoBehaviour
     public NavMeshAgent EnemyNav;
     public Transform Player;
     public Transform Enemy;
-    void Start()
-    {
 
+    private Animator animator;
+    void Awake()
+    {
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
         EnemyNav.SetDestination(Player.position);
-      
+        animator.SetBool("Walk", true);
+
         float Distance = Vector3.Distance(Player.position, Enemy.position);
 
         if (Distance < 1f)

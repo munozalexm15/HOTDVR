@@ -22,7 +22,7 @@ public class RightHand : MonoBehaviour
             
             if (trigger && grip)
             {
-                other.attachedRigidbody.AddForce(transform.forward * (velocity.magnitude * 8f), ForceMode.Impulse);
+                other.attachedRigidbody.AddForce(transform.forward * (velocity.magnitude * 28f), ForceMode.Impulse);
                 UnityEngine.Debug.Log("Fuerza aplicada puño al derecho: " + velocity.magnitude);
             }
             else
