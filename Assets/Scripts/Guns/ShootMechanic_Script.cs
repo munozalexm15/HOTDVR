@@ -39,32 +39,63 @@ public class ShootMechanic_Script : MonoBehaviour
     public ActionBasedController LeftController;
     public ActionBasedController RightController;
 
+    private float lastFired;
+
+    ActivateEventArgs activateEventArgs;
+
     void Start()
     {
-        
-        XRGrabInteractable grabbable = GetComponent<XRGrabInteractable>();
-        grabbable.activated.AddListener(FireBullet);
-        grabbable.selectExited.AddListener(HideAmmo);
-        grabbable.selectEntered.AddListener(ShowAmmo);
-
         gunData = GetComponent<GunData>();
         actualHand = GetComponent<GrabPose_Handler>().actualHand;
+        XRGrabInteractable grabbable = GetComponent<XRGrabInteractable>();
+        
+        if (!gunData.isAutomatic)
+        {
+            grabbable.activated.AddListener(FireBullet);
+        }
+        else
+        {
+            grabbable.activated.AddListener(FullAutoShoot);
+            grabbable.deactivated.AddListener(StopShooting);
+
+        }
+      
+        grabbable.selectExited.AddListener(HideAmmo);
+        grabbable.selectEntered.AddListener(ShowAmmo);
 
     }
 
     void Update()
     {
         Crosshair_ResetSize();
+        
+       
     }
 
+    public void StopShooting(DeactivateEventArgs args)
+    {
+        StopCoroutine(ShootAgain(activateEventArgs));
+    }
+
+    public void FullAutoShoot(ActivateEventArgs args)
+    {
+        StopCoroutine(ShootAgain(args));
+        StartCoroutine(ShootAgain(args));
+    }
+
+    IEnumerator ShootAgain(ActivateEventArgs args)
+    {
+        FireBullet(args);
+        yield return new WaitForSeconds(gunData.firerate);
+    }
 
     public void FireBullet(ActivateEventArgs args)
     {
+        activateEventArgs = args;
         if (gunData.isReloading)
         {
             return;
         }
-        actualHand = GetComponent<GrabPose_Handler>().actualHand;
 
         if (gunData.bulletsInMagazine <= 0)
         {
@@ -72,10 +103,11 @@ public class ShootMechanic_Script : MonoBehaviour
             StartCoroutine(reloadWeapon());
             return;
         }
-        
+
+        actualHand = GetComponent<GrabPose_Handler>().actualHand;
 
         //BUG: Mirar tema de la rotacion del arma o de la mano para que dependa de su rotacion local --- Manual Reload (Force player to put the gun in an almost 90 degree angle and press shoot to reload)
-        else if (actualHand == "LEFT" && LeftController.transform.localRotation.x <= -0.7)
+        if (actualHand == "LEFT" && LeftController.transform.localRotation.x <= -0.7)
         {
            
             StartCoroutine(reloadWeapon());
@@ -156,7 +188,6 @@ public class ShootMechanic_Script : MonoBehaviour
             StartCoroutine(reloadWeapon());
         }
         crosshairTransform.gameObject.SetActive(true);
-
     }
 
 

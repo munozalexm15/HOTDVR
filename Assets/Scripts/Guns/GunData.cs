@@ -13,6 +13,7 @@ public class GunData : MonoBehaviour
     public float accuracy;
 
     public bool isReloading;
+    public bool isAutomatic;
 
     public float damage;
 
