@@ -39,12 +39,17 @@ public class ShootMechanic_Script : MonoBehaviour
     public ActionBasedController LeftController;
     public ActionBasedController RightController;
 
-    private float lastFired;
+    private Coroutine _current;
 
     ActivateEventArgs activateEventArgs;
 
+    private bool isShooting;
+
+    private float lastfired;
+
     void Start()
     {
+        isShooting = false;
         gunData = GetComponent<GunData>();
         actualHand = GetComponent<GrabPose_Handler>().actualHand;
         XRGrabInteractable grabbable = GetComponent<XRGrabInteractable>();
@@ -68,30 +73,31 @@ public class ShootMechanic_Script : MonoBehaviour
     void Update()
     {
         Crosshair_ResetSize();
-        
-       
+
+        if (isShooting)
+        {
+            if (Time.time - lastfired > 1 / gunData.firerate)
+            {
+                lastfired = Time.time;
+                FireBullet(activateEventArgs);
+            }
+        }
     }
 
     public void StopShooting(DeactivateEventArgs args)
     {
-        StopCoroutine(ShootAgain(activateEventArgs));
+        isShooting = false;
     }
 
     public void FullAutoShoot(ActivateEventArgs args)
     {
-        StopCoroutine(ShootAgain(args));
-        StartCoroutine(ShootAgain(args));
-    }
-
-    IEnumerator ShootAgain(ActivateEventArgs args)
-    {
-        FireBullet(args);
-        yield return new WaitForSeconds(gunData.firerate);
+        isShooting = true;
+        activateEventArgs = args;
     }
 
     public void FireBullet(ActivateEventArgs args)
     {
-        activateEventArgs = args;
+        
         if (gunData.isReloading)
         {
             return;
@@ -122,7 +128,7 @@ public class ShootMechanic_Script : MonoBehaviour
 
             //Actually made for a semi-auto weapon, it might change later if we implement full auto weapons
 
-            GameObject spawnedBullet = Instantiate(bulletModel);
+        GameObject spawnedBullet = Instantiate(bulletModel);
         spawnedBullet.transform.position = spawnPoint.position;
         spawnedBullet.GetComponent<Rigidbody>().velocity = spawnPoint.forward * gunData.bulletSpeed;
 
@@ -151,7 +157,6 @@ public class ShootMechanic_Script : MonoBehaviour
 
     public IEnumerator reloadWeapon()
     {
-        Debug.Log(leftHandPose_XR.transform.rotation);
         float lerp = Mathf.PingPong(Time.time, gunData.reloadTime) / gunData.reloadTime;
         gunData.isReloading = true;
         weaponAmmoIndicator.SetText("Rel");
