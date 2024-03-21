@@ -17,21 +17,23 @@ public class LeftHand : MonoBehaviour
         UnityEngine.Debug.Log("Objeto tocado izquierda: " + other.gameObject.name);
         _inputData._leftController.TryGetFeatureValue(CommonUsages.deviceVelocity, out Vector3 velocity);
 
-        if (_inputData._leftController.TryGetFeatureValue(CommonUsages.triggerButton, out bool trigger) && _inputData._leftController.TryGetFeatureValue(CommonUsages.gripButton, out bool grip))
-        {
+        if(other.gameObject.name.Equals("Zombie")) { 
+            if (_inputData._leftController.TryGetFeatureValue(CommonUsages.triggerButton, out bool trigger) && _inputData._leftController.TryGetFeatureValue(CommonUsages.gripButton, out bool grip))
+            {
             
-            if (trigger && grip)
-            {
-                other.attachedRigidbody.AddForce(transform.forward * (velocity.magnitude * 50f), ForceMode.Impulse);
-                UnityEngine.Debug.Log("Fuerza aplicada puño izquierdo: " + velocity.magnitude);
-            }
-            else
-            {
-                other.attachedRigidbody.AddForce(transform.forward * (velocity.magnitude * 25f), ForceMode.Impulse);
-                UnityEngine.Debug.Log("Fuerza aplicada empujar izquierdo: " + velocity.magnitude);
-            }
+                if (trigger && grip)
+                {
+                    other.attachedRigidbody.AddForce(transform.forward * (velocity.magnitude * 50f), ForceMode.Impulse);
+                    UnityEngine.Debug.Log("Fuerza aplicada puño izquierdo: " + velocity.magnitude);
+                }
+                else
+                {
+                    other.attachedRigidbody.AddForce(transform.forward * (velocity.magnitude * 25f), ForceMode.Impulse);
+                    UnityEngine.Debug.Log("Fuerza aplicada empujar izquierdo: " + velocity.magnitude);
+                }
 
+            }
         }
-        
+
     }
 }

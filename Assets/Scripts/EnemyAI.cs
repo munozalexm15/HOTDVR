@@ -9,6 +9,7 @@ public class EnemyAI : MonoBehaviour
     public NavMeshAgent EnemyNav;
     public Transform Player;
     public Transform Enemy;
+    public float EnemyHealth;
 
     private Animator animator;
     void Awake()
@@ -20,8 +21,6 @@ public class EnemyAI : MonoBehaviour
     void Update()
     {
         float Distance = Vector3.Distance(Player.position, Enemy.position);
-        Debug.Log("Distancia: " + Distance);
-
 
         if (Distance < 1.25f)
         {
@@ -34,6 +33,11 @@ public class EnemyAI : MonoBehaviour
             EnemyNav.SetDestination(Player.position);
             animator.SetBool("Walk", true);
             animator.SetBool("Attack", false);
+        }
+
+        if (EnemyHealth <= 0) 
+        {
+            animator.SetBool("HasHealth", false);
         }
     }
 
