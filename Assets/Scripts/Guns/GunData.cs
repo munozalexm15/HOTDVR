@@ -10,7 +10,7 @@ public class GunData : MonoBehaviour
     public int bulletsPerMagazine;
     public int bulletsInMagazine;
     public float reloadTime;
-    public float accuracy;
+    
 
     public bool isReloading;
     public bool isAutomatic;
@@ -20,4 +20,6 @@ public class GunData : MonoBehaviour
     public string EjectAnimation;
     public string RightHandTriggerPull;
     public string LeftHandTriggerPull;
+
+    
 }

@@ -41,6 +41,8 @@ public class ShootMechanic_Script : MonoBehaviour
 
     private Coroutine _current;
 
+    private float bulletSpread;
+
     ActivateEventArgs activateEventArgs;
 
     private bool isShooting;
@@ -49,6 +51,7 @@ public class ShootMechanic_Script : MonoBehaviour
 
     void Start()
     {
+        bulletSpread = 0;
         isShooting = false;
         gunData = GetComponent<GunData>();
         actualHand = GetComponent<GrabPose_Handler>().actualHand;
@@ -130,6 +133,8 @@ public class ShootMechanic_Script : MonoBehaviour
 
         GameObject spawnedBullet = Instantiate(bulletModel);
         spawnedBullet.transform.position = spawnPoint.position;
+        //Add bullet spread
+        spawnedBullet.transform.Rotate(UnityEngine.Random.Range(0, bulletSpread), UnityEngine.Random.Range(0, bulletSpread), 0);
         spawnedBullet.GetComponent<Rigidbody>().velocity = spawnPoint.forward * gunData.bulletSpeed;
 
         if (actualHand.Equals("LEFT"))
@@ -215,6 +220,7 @@ public class ShootMechanic_Script : MonoBehaviour
     public void Crosshair_MakeBigger()
     {
         crosshairTransform.localScale += new Vector3(0.1f, 0.1f, 0.1f);
+        bulletSpread += 10f;
     }
 
     public void Crosshair_ResetSize()
@@ -222,6 +228,7 @@ public class ShootMechanic_Script : MonoBehaviour
         if (crosshairTransform.localScale.x > 0.2)
         {
             crosshairTransform.localScale -= new Vector3(0.01f, 0.01f, 0.01f);
+            bulletSpread -= 0.01f;
         }
     }
 }
