@@ -19,14 +19,21 @@ public class EnemyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        EnemyNav.SetDestination(Player.position);
-        animator.SetBool("Walk", true);
-
         float Distance = Vector3.Distance(Player.position, Enemy.position);
+        Debug.Log("Distancia: " + Distance);
 
-        if (Distance < 1f)
+
+        if (Distance < 1.25f)
         {
             Debug.Log("Enemigo ataca a Melee");
+            animator.SetBool("Walk", false);
+            animator.SetBool("Attack", true);
+        }
+        else 
+        {
+            EnemyNav.SetDestination(Player.position);
+            animator.SetBool("Walk", true);
+            animator.SetBool("Attack", false);
         }
     }
 

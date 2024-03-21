@@ -22,12 +22,12 @@ public class LeftHand : MonoBehaviour
             
             if (trigger && grip)
             {
-                other.attachedRigidbody.AddForce(transform.forward * (velocity.magnitude * 8f), ForceMode.Impulse);
+                other.attachedRigidbody.AddForce(transform.forward * (velocity.magnitude * 50f), ForceMode.Impulse);
                 UnityEngine.Debug.Log("Fuerza aplicada puño izquierdo: " + velocity.magnitude);
             }
             else
             {
-                other.attachedRigidbody.AddForce(transform.forward * (velocity.magnitude * 4f), ForceMode.Impulse);
+                other.attachedRigidbody.AddForce(transform.forward * (velocity.magnitude * 25f), ForceMode.Impulse);
                 UnityEngine.Debug.Log("Fuerza aplicada empujar izquierdo: " + velocity.magnitude);
             }
 
