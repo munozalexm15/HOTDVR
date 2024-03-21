@@ -818,14 +818,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15cc5e895efe0dc4d978f4bafb8a902b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firerate: 25
+  firerate: 15
   bulletSpeed: 50
   bulletsPerMagazine: 30
   bulletsInMagazine: 30
   reloadTime: 3.5
   isReloading: 0
   isAutomatic: 1
-  damage: 20
+  damage: 15
   EjectAnimation: Pistol_ShellEjection
   RightHandTriggerPull: Pistol_Finger_PullTrigger_Right
   LeftHandTriggerPull: Pistol_Finger_PullTrigger_Left
