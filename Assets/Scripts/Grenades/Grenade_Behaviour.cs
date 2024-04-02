@@ -24,7 +24,7 @@ public class Grenade_Behaviour : XRGrabInteractable
         ringInitialPos = ring.GetComponent<Transform>();
         ring.SetActive(false);
         initialTransform = transform;
-        //ring.GetComponent<XRGrabInteractable>().enabled = false;
+        //lockpick.GetComponent<XRGrabInteractable>().enabled = false;
         selectEntered.AddListener(CheckHand);
         selectExited.AddListener(HideRing);
         ring.GetComponent<XRGrabInteractable>().selectEntered.AddListener(checkRingIsPulled);
@@ -50,17 +50,17 @@ public class Grenade_Behaviour : XRGrabInteractable
         /**
         if (handData.modelType == HandData.HandModelType.LEFT)
         {
-            ring.transform.Rotate(new Vector3(0, 360, 0));
+            lockpick.transform.Rotate(new Vector3(0, 360, 0));
         }
 
         else if (handData.modelType == HandData.HandModelType.RIGHT)
         {
-            ring.transform.Rotate(new Vector3(0, 180, 0));
+            lockpick.transform.Rotate(new Vector3(0, 180, 0));
         }
         **/
 
         ring.SetActive(true);
-        //ring.gameObject.GetComponent<XRGrabInteractable>().enabled = true;
+        //lockpick.gameObject.GetComponent<XRGrabInteractable>().enabled = true;
     }
 
     private void HideRing(SelectExitEventArgs args)
