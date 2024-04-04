@@ -10,6 +10,7 @@ public class EnemyAI : MonoBehaviour
     public Transform Player;
     public Transform Enemy;
     public float EnemyHealth;
+    private bool IsDead = false;
 
     private Animator animator;
     void Awake()
@@ -17,7 +18,7 @@ public class EnemyAI : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
+     //Update is called once per frame
     void Update()
     {
         float Distance = Vector3.Distance(Player.position, Enemy.position);
@@ -28,16 +29,19 @@ public class EnemyAI : MonoBehaviour
             animator.SetBool("Walk", false);
             animator.SetBool("Attack", true);
         }
-        else 
+        else if(!IsDead && EnemyNav != null)
         {
             EnemyNav.SetDestination(Player.position);
             animator.SetBool("Walk", true);
             animator.SetBool("Attack", false);
         }
 
-        if (EnemyHealth <= 0) 
+        if (EnemyHealth <= 0 && !IsDead) 
         {
-            animator.SetBool("HasHealth", false);
+            EnemyNav.isStopped = true;
+            animator.SetTrigger("IsDead");
+            IsDead = true;
+
         }
     }
 
