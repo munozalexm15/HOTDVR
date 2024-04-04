@@ -129,7 +129,7 @@ public class ShootMechanic_Script : MonoBehaviour
         }
 
 
-            //Actually made for a semi-auto weapon, it might change later if we implement full auto weapons
+        //Actually made for a semi-auto weapon, it might change later if we implement full auto weapons
 
         GameObject spawnedBullet = Instantiate(bulletModel);
         spawnedBullet.transform.position = spawnPoint.position;
