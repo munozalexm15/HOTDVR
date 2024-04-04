@@ -10949,7 +10949,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6569949052497404699
 Transform:
   m_ObjectHideFlags: 0
@@ -12339,7 +12339,7 @@ Transform:
   - {fileID: 4583362795549825899}
   - {fileID: 5970172638782440262}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2910974324764072302
 MeshFilter:
@@ -12413,7 +12413,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -12542,7 +12542,7 @@ MonoBehaviour:
   m_SmoothRotation: 0
   m_SmoothRotationAmount: 5
   m_TightenRotation: 0.5
-  m_ThrowOnDetach: 1
+  m_ThrowOnDetach: 0
   m_ThrowSmoothingDuration: 0.25
   m_ThrowSmoothingCurve:
     serializedVersion: 2
@@ -12629,6 +12629,8 @@ MonoBehaviour:
   - {fileID: 2759540520479630335}
   weaponAmmoIndicator: {fileID: 4732449955249804400}
   crosshairTransform: {fileID: 6569949052497404699}
+  LeftController: {fileID: 0}
+  RightController: {fileID: 0}
 --- !u!114 &4557388035148502217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12646,8 +12648,8 @@ MonoBehaviour:
   bulletsPerMagazine: 8
   bulletsInMagazine: 8
   reloadTime: 2
-  accuracy: 100
   isReloading: 0
+  isAutomatic: 0
   damage: 5
   EjectAnimation: Pistol_ShellEjection
   RightHandTriggerPull: Pistol_Finger_PullTrigger_Right

@@ -131,11 +131,10 @@ public class ShootMechanic_Script : MonoBehaviour
 
         //Actually made for a semi-auto weapon, it might change later if we implement full auto weapons
 
-        GameObject spawnedBullet = Instantiate(bulletModel);
-        spawnedBullet.transform.position = spawnPoint.position;
+        GameObject spawnedBullet = Instantiate(bulletModel, spawnPoint.position, spawnPoint.rotation);
+
         //Add bullet spread
-        spawnedBullet.transform.Rotate(UnityEngine.Random.Range(0, bulletSpread), UnityEngine.Random.Range(0, bulletSpread), 0);
-        spawnedBullet.GetComponent<Rigidbody>().velocity = spawnPoint.forward * gunData.bulletSpeed;
+        spawnedBullet.GetComponent<Rigidbody>().velocity = new Vector3(UnityEngine.Random.Range(-bulletSpread, bulletSpread), UnityEngine.Random.Range(-bulletSpread, bulletSpread), 1) * gunData.bulletSpeed;
 
         if (actualHand.Equals("LEFT"))
         {
@@ -220,7 +219,7 @@ public class ShootMechanic_Script : MonoBehaviour
     public void Crosshair_MakeBigger()
     {
         crosshairTransform.localScale += new Vector3(0.1f, 0.1f, 0.1f);
-        bulletSpread += 10f;
+        bulletSpread += 0.0001f;
     }
 
     public void Crosshair_ResetSize()
@@ -228,7 +227,12 @@ public class ShootMechanic_Script : MonoBehaviour
         if (crosshairTransform.localScale.x > 0.2)
         {
             crosshairTransform.localScale -= new Vector3(0.01f, 0.01f, 0.01f);
+           
+        }
+        if (bulletSpread > 0)
+        {
             bulletSpread -= 0.01f;
         }
+        
     }
 }
