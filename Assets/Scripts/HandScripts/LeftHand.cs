@@ -17,7 +17,7 @@ public class LeftHand : MonoBehaviour
         UnityEngine.Debug.Log("Objeto tocado izquierda: " + other.gameObject.name);
         _inputData._leftController.TryGetFeatureValue(CommonUsages.deviceVelocity, out Vector3 velocity);
 
-        if(other.gameObject.name.Equals("Zombie")) { 
+        if(other.gameObject.tag.Equals("Enemy")) { 
             if (_inputData._leftController.TryGetFeatureValue(CommonUsages.triggerButton, out bool trigger) && _inputData._leftController.TryGetFeatureValue(CommonUsages.gripButton, out bool grip))
             {
             

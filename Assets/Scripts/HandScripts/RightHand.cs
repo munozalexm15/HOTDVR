@@ -17,7 +17,7 @@ public class RightHand : MonoBehaviour
         UnityEngine.Debug.Log("Objeto tocado derecha: " + other.gameObject.name);
         _inputData._rightController.TryGetFeatureValue(CommonUsages.deviceVelocity, out Vector3 velocity);
 
-        if (other.gameObject.name.Equals("Zombie"))
+        if (other.gameObject.tag.Equals("Enemy"))
         {
             if (_inputData._rightController.TryGetFeatureValue(CommonUsages.triggerButton, out bool trigger) && _inputData._rightController.TryGetFeatureValue(CommonUsages.gripButton, out bool grip))
             {
