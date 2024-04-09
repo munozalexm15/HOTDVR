@@ -38,13 +38,17 @@ public class PathTracking_Behaviour : MonoBehaviour
 
     private Coroutine spawnCoroutine;
 
+    private float step;
+
 
     void Start()
     {
-        speed = 3;
+        speed = 1;
         nextPosIndex = 0;
         nextPosition = positionsData[nextPosIndex];
         kills = 0;
+        getSpawnData(positionsData[nextPosIndex]);
+        step = 0.0f;
     }
 
     void Update()
@@ -99,9 +103,10 @@ public class PathTracking_Behaviour : MonoBehaviour
     private void MoveToNextPos()
     {
         //on moving to second pos it fails (if it is killcount)
-        var step = speed * Time.deltaTime;
-        playerPosition.position = Vector3.MoveTowards(playerPosition.position, nextPosition.position.position, step);
-
+       
+        step += 0.05f * Time.deltaTime;
+        var movementSpeed = Mathf.Lerp(0, speed, step);
+        playerPosition.position = Vector3.MoveTowards(playerPosition.position, nextPosition.position.position, movementSpeed);
 
         if (Vector3.Distance(playerPosition.position, nextPosition.position.position) < 0.001f)
         {

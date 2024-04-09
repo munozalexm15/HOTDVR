@@ -134,7 +134,10 @@ public class ShootMechanic_Script : MonoBehaviour
         GameObject spawnedBullet = Instantiate(bulletModel, spawnPoint.position, spawnPoint.rotation);
 
         //Add bullet spread
-        spawnedBullet.GetComponent<Rigidbody>().velocity = new Vector3(UnityEngine.Random.Range(-bulletSpread, bulletSpread), UnityEngine.Random.Range(-bulletSpread, bulletSpread), 1) * gunData.bulletSpeed;
+        spawnedBullet.GetComponent<Rigidbody>().velocity = new Vector3(UnityEngine.Random.Range(-bulletSpread, bulletSpread) + spawnPoint.forward.x, UnityEngine.Random.Range(-bulletSpread, bulletSpread) + spawnPoint.forward.y, UnityEngine.Random.Range(-bulletSpread, bulletSpread) + spawnPoint.forward.z) * gunData.bulletSpeed;
+
+
+        print(bulletSpread);
 
         if (actualHand.Equals("LEFT"))
         {
@@ -218,8 +221,13 @@ public class ShootMechanic_Script : MonoBehaviour
 
     public void Crosshair_MakeBigger()
     {
-        crosshairTransform.localScale += new Vector3(0.1f, 0.1f, 0.1f);
-        bulletSpread += 0.0001f;
+       
+        if (bulletSpread < gunData.maxBulletSpread)
+        {
+            bulletSpread += 0.05f;
+            crosshairTransform.localScale += new Vector3(0.1f, 0.1f, 0.1f);
+        }
+        
     }
 
     public void Crosshair_ResetSize()
@@ -231,7 +239,7 @@ public class ShootMechanic_Script : MonoBehaviour
         }
         if (bulletSpread > 0)
         {
-            bulletSpread -= 0.01f;
+            bulletSpread -= 0.005f;
         }
         
     }

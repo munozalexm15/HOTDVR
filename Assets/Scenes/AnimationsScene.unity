@@ -3034,6 +3034,10 @@ PrefabInstance:
       propertyPath: rightHandPose_XR
       value: 
       objectReference: {fileID: 4886171248727939837}
+    - target: {fileID: 3410706245786527813, guid: 66a7b70fbd827a2419744cce136f5f98, type: 3}
+      propertyPath: maxBulletSpread
+      value: 0.075
+      objectReference: {fileID: 0}
     - target: {fileID: 3837961960873448095, guid: 66a7b70fbd827a2419744cce136f5f98, type: 3}
       propertyPath: m_Mass
       value: 1
@@ -3749,6 +3753,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3726620312217355774, guid: 7bbdfa9a223de804ba75c8231f6ccd38, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4557388035148502217, guid: 7bbdfa9a223de804ba75c8231f6ccd38, type: 3}
+      propertyPath: maxBulletSpread
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4557388035148502217, guid: 7bbdfa9a223de804ba75c8231f6ccd38, type: 3}
@@ -4631,6 +4639,14 @@ PrefabInstance:
     - target: {fileID: 1506101562441441966, guid: d6df64f80a3859e48b45cf6ee3c37254, type: 3}
       propertyPath: m_Name
       value: M4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1525291120522719163, guid: d6df64f80a3859e48b45cf6ee3c37254, type: 3}
+      propertyPath: isReloading
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1525291120522719163, guid: d6df64f80a3859e48b45cf6ee3c37254, type: 3}
+      propertyPath: maxBulletSpread
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 3092284218565093417, guid: d6df64f80a3859e48b45cf6ee3c37254, type: 3}
       propertyPath: m_ThrowOnDetach
@@ -35975,6 +35991,7 @@ MonoBehaviour:
   bulletsPerMagazine: 5
   bulletsInMagazine: 5
   reloadTime: 4
+  maxBulletSpread: 0
   isReloading: 0
   isAutomatic: 0
   damage: 100
