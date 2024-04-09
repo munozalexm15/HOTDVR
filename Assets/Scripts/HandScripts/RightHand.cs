@@ -24,13 +24,15 @@ public class RightHand : MonoBehaviour
 
                 if (trigger && grip)
                 {
-                    other.attachedRigidbody.AddForce(transform.forward * (velocity.magnitude * 50f), ForceMode.Impulse);
-                    UnityEngine.Debug.Log("Fuerza aplicada puño al derecho: " + velocity.magnitude);
+                    //other.attachedRigidbody.AddForce(transform.forward * (velocity.magnitude * 50f), ForceMode.Impulse);
+                    //UnityEngine.Debug.Log("Fuerza aplicada puño al derecho: " + velocity.magnitude);
+                    other.gameObject.GetComponent<Animator>().SetTrigger("IsPunched");
                 }
                 else
                 {
-                    other.attachedRigidbody.AddForce(transform.forward * (velocity.magnitude * 25f), ForceMode.Impulse);
-                    UnityEngine.Debug.Log("Fuerza aplicada al empujar a la derecha: " + velocity.magnitude);
+                    //other.attachedRigidbody.AddForce(transform.forward * (velocity.magnitude * 25f), ForceMode.Impulse);
+                    //UnityEngine.Debug.Log("Fuerza aplicada al empujar a la derecha: " + velocity.magnitude);
+                    other.gameObject.GetComponent<Animator>().SetTrigger("IsHit");
                 }
 
             }
