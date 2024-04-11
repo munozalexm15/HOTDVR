@@ -26,13 +26,21 @@ public class RightHand : MonoBehaviour
                 {
                     //other.attachedRigidbody.AddForce(transform.forward * (velocity.magnitude * 50f), ForceMode.Impulse);
                     //UnityEngine.Debug.Log("Fuerza aplicada puño al derecho: " + velocity.magnitude);
-                    other.gameObject.GetComponent<Animator>().SetTrigger("IsPunched");
+                    if (velocity.magnitude > 0.5)
+                    {
+                        other.gameObject.GetComponent<Animator>().SetTrigger("IsPunched");
+                        other.gameObject.GetComponent<EnemyAI>().EnemyHealth -= 1;
+                        UnityEngine.Debug.Log(other.gameObject.GetComponent<EnemyAI>().EnemyHealth);
+                    }
                 }
                 else
                 {
                     //other.attachedRigidbody.AddForce(transform.forward * (velocity.magnitude * 25f), ForceMode.Impulse);
                     //UnityEngine.Debug.Log("Fuerza aplicada al empujar a la derecha: " + velocity.magnitude);
-                    other.gameObject.GetComponent<Animator>().SetTrigger("IsHit");
+                    if (velocity.magnitude > 0.5)
+                    {
+                        other.gameObject.GetComponent<Animator>().SetTrigger("IsHit");
+                    }
                 }
 
             }
