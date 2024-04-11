@@ -10,8 +10,6 @@ public class EnemyAI : MonoBehaviour
     public Transform Player;
     public Transform Enemy;
     public float EnemyHealth;
-    private bool IsDead = false;
-
     private Animator animator;
     void Awake()
     {
@@ -29,19 +27,18 @@ public class EnemyAI : MonoBehaviour
             animator.SetBool("Walk", false);
             animator.SetBool("Attack", true);
         }
-        else if(!IsDead && EnemyNav != null)
+        else if(!animator.GetBool("IsDeadBool") && EnemyNav != null)
         {
             EnemyNav.SetDestination(Player.position);
             animator.SetBool("Walk", true);
             animator.SetBool("Attack", false);
         }
 
-        if (EnemyHealth <= 0 && !IsDead) 
+        if (EnemyHealth <= 0 && !animator.GetBool("IsDeadBool")) 
         {
             EnemyNav.isStopped = true;
             animator.SetTrigger("IsDead");
-            IsDead = true;
-
+            animator.SetBool("IsDeadBool", true);
         }
     }
 

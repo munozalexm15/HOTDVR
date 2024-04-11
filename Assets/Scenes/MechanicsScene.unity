@@ -2187,6 +2187,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   kills: 0
+  zombieTypes: []
 --- !u!114 &984260280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2951,7 +2952,7 @@ MonoBehaviour:
   EnemyNav: {fileID: 1705319397}
   Player: {fileID: 984260277}
   Enemy: {fileID: 1705319395}
-  EnemyHealth: 1
+  EnemyHealth: 2
 --- !u!195 &1705319397
 NavMeshAgent:
   m_ObjectHideFlags: 0
