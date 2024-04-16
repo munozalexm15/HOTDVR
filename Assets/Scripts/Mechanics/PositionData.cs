@@ -9,4 +9,7 @@ public class PositionData : MonoBehaviour
     public Transform position;
     public requirement requirementArea;
     public float requirementTask;
+    public int enemyWaves;
+
+    public List<GameObject> enemiesSpawned = new List<GameObject>();
 }

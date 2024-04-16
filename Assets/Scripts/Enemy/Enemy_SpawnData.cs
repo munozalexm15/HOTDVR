@@ -17,5 +17,6 @@ public class Enemy_SpawnData : MonoBehaviour
 
     //Maximum quantity of zombies that can spawn in this place (it will be ignored if the area requirement is timed and not for killing zombies)
     public int MaxSpawnedZombies;
-    
+
+
 }

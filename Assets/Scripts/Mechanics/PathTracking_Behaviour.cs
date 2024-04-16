@@ -15,6 +15,7 @@ public class PathTracking_Behaviour : MonoBehaviour
     //List of the positions and its data (Requirements to move to the next position)
     public List<PositionData> positionsData;
 
+    //List of spawn positions where zombies will spawn
     private Enemy_SpawnData[] spawnPositions;
 
     //In case the area is timed, this variable works for checking if the time is up
@@ -40,6 +41,8 @@ public class PathTracking_Behaviour : MonoBehaviour
 
     private float step;
 
+    private bool startedWave;
+
 
     void Start()
     {
@@ -49,6 +52,7 @@ public class PathTracking_Behaviour : MonoBehaviour
         kills = 0;
         getSpawnData(positionsData[nextPosIndex]);
         step = 0.0f;
+        startedWave = false;
     }
 
     void Update()
@@ -57,20 +61,21 @@ public class PathTracking_Behaviour : MonoBehaviour
         {
             //If player has to defend a position for certain time
             Movement();
-            if (spawnCoroutine == null)
+            if (startedWave == true)
             {
-                spawnCoroutine = StartCoroutine("SpawnZombies");
+                SpawnZombies();
             }
-           
+
         }
         if (nextPosition.requirementArea == PositionData.requirement.KILLS)
         {
             //If player has to kill an amount of enemies to move forward
             KillCountCheck();
-            if (spawnCoroutine == null)
+            if (startedWave == true)
             {
-                spawnCoroutine = StartCoroutine("SpawnZombies");
+                SpawnZombies();
             }
+            
         }
     }
 
@@ -82,11 +87,14 @@ public class PathTracking_Behaviour : MonoBehaviour
             {
                 timeInPos = nextPosition.requirementTask;
                 isMoving = true;
+                
             }
 
             timeInPos--;
             if (timeInPos <= 0)
             {
+                startedWave = false;
+               
                 MoveToNextPos();
             }
         }
@@ -96,14 +104,13 @@ public class PathTracking_Behaviour : MonoBehaviour
     {
         if (kills >= nextPosition.requirementTask)
         {
+            startedWave = false;
             MoveToNextPos();
         }
     }
 
     private void MoveToNextPos()
     {
-        //on moving to second pos it fails (if it is killcount)
-       
         step += 0.05f * Time.deltaTime;
         var movementSpeed = Mathf.Lerp(0, speed, step);
         playerPosition.position = Vector3.MoveTowards(playerPosition.position, nextPosition.position.position, movementSpeed);
@@ -114,8 +121,13 @@ public class PathTracking_Behaviour : MonoBehaviour
             if (nextPosIndex < positionsData.Count)
             {
                 nextPosition = positionsData[nextPosIndex];
-                getSpawnData(nextPosition);
-               
+                if (startedWave == false)
+                {
+                    getSpawnData(nextPosition);
+                    startedWave = true;
+
+                }
+                
                 isMoving = false;
                 kills = 0;
             }
@@ -123,24 +135,56 @@ public class PathTracking_Behaviour : MonoBehaviour
         }
     }
 
-    private IEnumerator SpawnZombies()
+    private void  SpawnZombies()
     {
-        foreach (Enemy_SpawnData enemySpawnData in spawnPositions)
-        {
-            int randomSpawnTime = Range(enemySpawnData.minSpawnTimeInterval, enemySpawnData.maxSpawnTimeInterval);
+        startedWave = false;
 
-            yield return new WaitForSeconds(randomSpawnTime);
-
-            GameObject randomZombieType = zombieTypes[Range(0, zombieTypes.Count)];
-            GameObject zombie = Instantiate(randomZombieType, enemySpawnData.spawnPoint);
-            zombie.GetComponent<EnemyAI>().Player = playerPosition;
-            zombie.GetComponent<Enemy_Damageable>().PlayerPath = this;
-            enemySpawnData.spawnCount++;
+        if (nextPosition.requirementArea.Equals(PositionData.requirement.TIMED)) {
+            for (int x = 0; x < nextPosition.enemyWaves * 3; x++)
+            {
+                foreach (Enemy_SpawnData enemySpawnData in spawnPositions)
+                {
+                    if (enemySpawnData.spawnCount < enemySpawnData.MaxSpawnedZombies)
+                    {
+                        enemySpawnData.spawnCount++;
+                        int randomSpawnTime = Range(enemySpawnData.minSpawnTimeInterval, enemySpawnData.maxSpawnTimeInterval);
+                        spawnCoroutine = StartCoroutine(ZombiesSpawner(randomSpawnTime, enemySpawnData));
+                    }
+                }
+            }
+        }
+        else {
+            for (int x = 0; x < nextPosition.enemyWaves; x++)
+            {
+                foreach (Enemy_SpawnData enemySpawnData in spawnPositions)
+                {
+                    if (enemySpawnData.spawnCount < enemySpawnData.MaxSpawnedZombies)
+                    {
+                        enemySpawnData.spawnCount++;
+                        int randomSpawnTime = Range(enemySpawnData.minSpawnTimeInterval, enemySpawnData.maxSpawnTimeInterval);
+                        StartCoroutine(ZombiesSpawner(randomSpawnTime, enemySpawnData));
+                    }
+                }
+            }
         }
     }
 
     private void getSpawnData(PositionData pos)
     {
         spawnPositions = pos.GetComponentsInChildren<Enemy_SpawnData>();
+    }
+
+    private IEnumerator ZombiesSpawner(int waitTime, Enemy_SpawnData enemySpawnData)
+    {
+        yield return new WaitForSeconds(waitTime);
+
+        GameObject randomZombieType = zombieTypes[Range(0, zombieTypes.Count)];
+        GameObject zombie = Instantiate(randomZombieType);
+        zombie.transform.position = enemySpawnData.spawnPoint.position;
+        zombie.transform.rotation = enemySpawnData.spawnPoint.rotation;
+        zombie.GetComponent<EnemyAI>().Player = playerPosition;
+        zombie.GetComponent<Enemy_Damageable>().PlayerPath = this;
+        nextPosition.enemiesSpawned.Add(zombie);
+
     }
 }
