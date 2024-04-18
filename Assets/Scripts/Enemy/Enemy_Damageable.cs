@@ -7,6 +7,8 @@ public class Enemy_Damageable : MonoBehaviour
 
     public float Health;
 
+    public Material zombieMaterial;
+
     public PathTracking_Behaviour PlayerPath;
     // Start is called before the first frame update
     void Start()
@@ -22,5 +24,22 @@ public class Enemy_Damageable : MonoBehaviour
             PlayerPath.kills += 1;
             Destroy(gameObject);
         }
+    }
+
+    public IEnumerator FlashDamage()
+    {
+
+        GetComponentInChildren<SkinnedMeshRenderer>().material.color = Color.red;
+
+        yield return new WaitForSeconds(0.25f);
+
+        GetComponentInChildren<SkinnedMeshRenderer>().material = zombieMaterial;
+    }
+
+    public void Damaged()
+    {
+        Health -= 1;
+
+        StartCoroutine(FlashDamage());
     }
 }

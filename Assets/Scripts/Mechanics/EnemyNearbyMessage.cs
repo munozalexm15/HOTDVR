@@ -24,7 +24,6 @@ public class EnemyNearbyMessage : MonoBehaviour
     {
       if (enemyDistance != null)
         {
-            print(1.0f / Vector3.Distance(player.transform.position, enemyDistance.position));
             m_TextMeshPro.alpha = 1.0f / Vector3.Distance(player.transform.position, enemyDistance.position);
         }
       else

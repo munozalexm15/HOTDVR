@@ -72,6 +72,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Basic_Zombie
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2594fbb33250a1b43b0e8cf30275193a, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 2594fbb33250a1b43b0e8cf30275193a, type: 3}
       propertyPath: m_Controller
       value: 
@@ -204,6 +208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 1
+  zombieMaterial: {fileID: -8469494145858465668, guid: 9618dfa7e112f1f4484848d8dc8649ed, type: 3}
   PlayerPath: {fileID: 0}
 --- !u!4 &1891470085490802987 stripped
 Transform:

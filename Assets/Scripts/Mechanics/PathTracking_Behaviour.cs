@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.Random;
 using static UnityEngine.GraphicsBuffer;
+using Unity.XR.CoreUtils;
 
 public class PathTracking_Behaviour : MonoBehaviour
 {
@@ -112,11 +113,13 @@ public class PathTracking_Behaviour : MonoBehaviour
     private void MoveToNextPos()
     {
         step += 0.05f * Time.deltaTime;
-        var movementSpeed = Mathf.Lerp(0, speed, step);
-        playerPosition.position = Vector3.MoveTowards(playerPosition.position, nextPosition.position.position, movementSpeed);
+        step = Mathf.Clamp(step, 0, Mathf.PI);
+        var movementSpeed = evaluatePos(step);
+        playerPosition.position = Vector3.Lerp(playerPosition.position, nextPosition.position.position, movementSpeed);
 
         if (Vector3.Distance(playerPosition.position, nextPosition.position.position) < 0.001f)
         {
+            step = 0;
             nextPosIndex += 1;
             if (nextPosIndex < positionsData.Count)
             {
@@ -133,6 +136,11 @@ public class PathTracking_Behaviour : MonoBehaviour
             }
 
         }
+    }
+
+    public float evaluatePos(float x)
+    {
+        return 0.5f * Mathf.Sin(x - Mathf.PI / 2f) + 0.5f;
     }
 
     private void  SpawnZombies()
@@ -182,8 +190,9 @@ public class PathTracking_Behaviour : MonoBehaviour
         GameObject zombie = Instantiate(randomZombieType);
         zombie.transform.position = enemySpawnData.spawnPoint.position;
         zombie.transform.rotation = enemySpawnData.spawnPoint.rotation;
-        zombie.GetComponent<EnemyAI>().Player = playerPosition;
+        zombie.GetComponent<EnemyAI>().Player = playerPosition.gameObject;
         zombie.GetComponent<Enemy_Damageable>().PlayerPath = this;
+        zombie.GetComponent<Enemy_Damageable>().Health = Range(1, 10);
         nextPosition.enemiesSpawned.Add(zombie);
 
     }

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Manos
   - Enemy
+  - Wall/ Other
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - Behind Crosshair
   - Bullet
   - Enemy
-  - 
+  - Wall
   - 
   - 
   - 

@@ -136,9 +136,6 @@ public class ShootMechanic_Script : MonoBehaviour
         //Add bullet spread
         spawnedBullet.GetComponent<Rigidbody>().velocity = new Vector3(UnityEngine.Random.Range(-bulletSpread, bulletSpread) + spawnPoint.forward.x, UnityEngine.Random.Range(-bulletSpread, bulletSpread) + spawnPoint.forward.y, UnityEngine.Random.Range(-bulletSpread, bulletSpread) + spawnPoint.forward.z) * gunData.bulletSpeed;
 
-
-        print(bulletSpread);
-
         if (actualHand.Equals("LEFT"))
         {
             leftHandPose_XR.GetComponent<Animation>().Play(gunData.LeftHandTriggerPull);
