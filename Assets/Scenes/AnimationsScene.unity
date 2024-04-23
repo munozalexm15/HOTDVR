@@ -738,6 +738,11 @@ Transform:
   m_Father: {fileID: 2123362777}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &264927801 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8844056996837984701, guid: 40415fc4bfbef114eb761d747ce11d4d, type: 3}
+  m_PrefabInstance: {fileID: 2401140130061080547}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &285954173
 GameObject:
   m_ObjectHideFlags: 0
@@ -1443,6 +1448,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &562888947 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3032018171563421023, guid: 9edf1cc76dd14694ea312e65736b3f27, type: 3}
+  m_PrefabInstance: {fileID: 6758074445543414559}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &573980658
 GameObject:
   m_ObjectHideFlags: 0
@@ -14798,6 +14808,7 @@ GameObject:
   - component: {fileID: 8575046591651070673}
   - component: {fileID: 7062004111007357825}
   - component: {fileID: 8575046591651070674}
+  - component: {fileID: 8575046591651070675}
   m_Layer: 2
   m_Name: XR Origin (XR Rig)
   m_TagString: Untagged
@@ -35340,6 +35351,26 @@ MonoBehaviour:
   kills: 0
   zombieTypes:
   - {fileID: 1257641920906484625, guid: 73b1282977287654bbe0723b1cd3c7f6, type: 3}
+--- !u!114 &8575046591651070675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3462571327635646413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cd372e04001c5c43bd96db08f08e141, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 5
+  damagedMaterial: {fileID: 2100000, guid: a372a10cc09c232409fdd7a443307b3d, type: 2}
+  scrathMaterial: {fileID: 2100000, guid: 6bb45707679a4ee49ae0735c73b2e09f, type: 2}
+  hurtMaterial: {fileID: 2100000, guid: 161c3549ba937654cac3394d2876568a, type: 2}
+  handMaterial: {fileID: 2100000, guid: a512bf05dde352a4da21ed416b0def40, type: 2}
+  leftHand: {fileID: 264927801}
+  rightHand: {fileID: 562888947}
+  isHurt: 0
 --- !u!1 &8600073672269310570
 GameObject:
   m_ObjectHideFlags: 0
