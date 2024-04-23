@@ -73,7 +73,6 @@ public class EnemyAI : MonoBehaviour
         GameObject cameraOffset = Player.GetNamedChild("Camera Offset");
         GameObject leftHand = cameraOffset.GetNamedChild("Left Controller").GetNamedChild("LeftHand").GetNamedChild("Hand");
         Color handsMat = leftHand.GetComponent<SkinnedMeshRenderer>().material.color;
-        print(leftHand);
         //GameObject rightHand = cameraOffset.GetNamedChild("Right Controller").GetNamedChild("RightHand").GetNamedChild("Hand");
         
         Player.GetComponent<PlayerHealth_Behavior>().health -= 1;
