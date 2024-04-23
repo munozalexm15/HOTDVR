@@ -6,8 +6,6 @@ using UnityEngine.SceneManagement;
 public class PlayerHealth_Behavior : MonoBehaviour
 {
     public int health;
-    private int maxHealth;
-    private int minHealth;
 
     public List<Material> hurtMaterials;
 
@@ -16,16 +14,11 @@ public class PlayerHealth_Behavior : MonoBehaviour
 
     public bool isHurt;
 
-    private bool isRecovering;
-
-    private float duration = 0.5f;
     // Start is called before the first frame update
     void Start()
     {
-        maxHealth = 3;
-        minHealth = 3;
         isHurt = false;
-        isRecovering = false;
+  
     }
 
     private void Update()

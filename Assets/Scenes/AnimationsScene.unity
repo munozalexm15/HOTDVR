@@ -35364,10 +35364,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 5
-  damagedMaterial: {fileID: 2100000, guid: a372a10cc09c232409fdd7a443307b3d, type: 2}
-  scrathMaterial: {fileID: 2100000, guid: 6bb45707679a4ee49ae0735c73b2e09f, type: 2}
-  hurtMaterial: {fileID: 2100000, guid: 161c3549ba937654cac3394d2876568a, type: 2}
-  handMaterial: {fileID: 2100000, guid: a512bf05dde352a4da21ed416b0def40, type: 2}
+  hurtMaterials:
+  - {fileID: 2100000, guid: 6bb45707679a4ee49ae0735c73b2e09f, type: 2}
+  - {fileID: 2100000, guid: a372a10cc09c232409fdd7a443307b3d, type: 2}
+  - {fileID: 2100000, guid: 161c3549ba937654cac3394d2876568a, type: 2}
+  - {fileID: 2100000, guid: a512bf05dde352a4da21ed416b0def40, type: 2}
   leftHand: {fileID: 264927801}
   rightHand: {fileID: 562888947}
   isHurt: 0

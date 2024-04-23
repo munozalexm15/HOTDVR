@@ -102,6 +102,10 @@ public class Grenade_Behaviour : XRGrabInteractable
         {
             for (int i = 0; i < collList.Length; i++)
             {
+                if (collList[i].tag == "Enemy")
+                {
+                    Destroy(collList[i]);
+                }
                 Debug.Log(collList[i].gameObject.name);
                 if (collList[i].TryGetComponent(out Rigidbody rb))
                 {
