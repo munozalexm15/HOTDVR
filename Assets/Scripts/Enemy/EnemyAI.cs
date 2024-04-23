@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
@@ -32,7 +31,6 @@ public class EnemyAI : MonoBehaviour
             Debug.Log("Enemigo ataca a Melee");
             animator.SetBool("Walk", false);
             animator.SetBool("Attack", true);
-            StartCoroutine(FlashDamage());
         }
         else if(!animator.GetBool("IsDeadBool") && EnemyNav != null)
         {
@@ -60,33 +58,12 @@ public class EnemyAI : MonoBehaviour
         if (DebugOffmeshLink) 
         {
             animator.SetTrigger("IsFalling");
-            EnemyNav.speed = jumpSpeed;
+            //EnemyNav.speed = jumpSpeed;
         }
         else 
         { 
-            EnemyNav.speed = walkSpeed;
+            //EnemyNav.speed = walkSpeed;
             animator.SetTrigger("IsOnFloor");
-        }
-    }
-    public IEnumerator FlashDamage()
-    {
-        GameObject cameraOffset = Player.GetNamedChild("Camera Offset");
-
-        GameObject leftHand = cameraOffset.GetNamedChild("Left Controller").GetNamedChild("LeftHand").GetNamedChild("Hand");
-        Material handsMat = leftHand.GetComponent<SkinnedMeshRenderer>().material;
-
-        GameObject rightHand = cameraOffset.GetNamedChild("Right Controller").GetNamedChild("RightHand").GetNamedChild("Hand");
-
-        if (leftHand && rightHand)
-        {
-            leftHand.GetComponent<SkinnedMeshRenderer>().material.color = Color.red;
-
-            rightHand.GetComponent<SkinnedMeshRenderer>().material.color = Color.red;
-
-            yield return new WaitForSeconds(0.5f);
-
-            leftHand.GetComponent<SkinnedMeshRenderer>().material = handsMat;
-            rightHand.GetComponent<SkinnedMeshRenderer>().material = handsMat;
         }
     }
 

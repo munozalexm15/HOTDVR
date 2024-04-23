@@ -191,8 +191,11 @@ public class PathTracking_Behaviour : MonoBehaviour
         zombie.transform.position = enemySpawnData.spawnPoint.position;
         zombie.transform.rotation = enemySpawnData.spawnPoint.rotation;
         zombie.GetComponent<EnemyAI>().Player = playerPosition.gameObject;
+        zombie.GetComponent<EnemyAI>().jumpSpeed = 1;
+        zombie.GetComponent<EnemyAI>().walkSpeed = 1;
         zombie.GetComponent<Enemy_Damageable>().PlayerPath = this;
         zombie.GetComponent<Enemy_Damageable>().Health = Range(1, 10);
+        
         nextPosition.enemiesSpawned.Add(zombie);
 
     }
