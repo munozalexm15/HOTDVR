@@ -8,42 +8,48 @@ public class RightHand : MonoBehaviour
     private InputData _inputData;
     void Start()
     {
-        UnityEngine.Debug.Log("Inicio el input data derecho");
         _inputData = GetComponent<InputData>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        UnityEngine.Debug.Log("Objeto tocado derecha: " + other.gameObject.name);
+        Transform topLevelParent = FindTopLevelParent(other.gameObject.transform);
         _inputData._rightController.TryGetFeatureValue(CommonUsages.deviceVelocity, out Vector3 velocity);
 
-        if (other.gameObject.tag.Equals("Enemy"))
+        if (topLevelParent.gameObject.tag.Equals("Enemy"))
         {
             if (_inputData._rightController.TryGetFeatureValue(CommonUsages.triggerButton, out bool trigger) && _inputData._rightController.TryGetFeatureValue(CommonUsages.gripButton, out bool grip))
             {
 
                 if (trigger && grip)
                 {
-                    //other.attachedRigidbody.AddForce(transform.forward * (velocity.magnitude * 50f), ForceMode.Impulse);
-                    //UnityEngine.Debug.Log("Fuerza aplicada puño al derecho: " + velocity.magnitude);
                     if (velocity.magnitude > 0.5)
                     {
-                        other.gameObject.GetComponent<Animator>().SetTrigger("IsPunched");
-                        other.gameObject.GetComponent<EnemyAI>().EnemyHealth -= 1;
-                        UnityEngine.Debug.Log(other.gameObject.GetComponent<EnemyAI>().EnemyHealth);
+                        topLevelParent.gameObject.GetComponent<Animator>().SetTrigger("IsPunched");
+                        topLevelParent.gameObject.GetComponent<EnemyAI>().EnemyHealth -= 1;
+                        UnityEngine.Debug.Log(topLevelParent.gameObject.GetComponent<EnemyAI>().EnemyHealth);
                     }
                 }
                 else
                 {
-                    //other.attachedRigidbody.AddForce(transform.forward * (velocity.magnitude * 25f), ForceMode.Impulse);
-                    //UnityEngine.Debug.Log("Fuerza aplicada al empujar a la derecha: " + velocity.magnitude);
                     if (velocity.magnitude > 0.5)
                     {
-                        other.gameObject.GetComponent<Animator>().SetTrigger("IsHit");
+                        topLevelParent.gameObject.GetComponent<Animator>().SetTrigger("IsHit");
                     }
                 }
 
             }
         }
+    }
+    private Transform FindTopLevelParent(Transform child)
+    {
+        Transform parent = child.parent;
+
+        while (parent != null)
+        {
+            child = parent;
+            parent = child.parent;
+        }
+        return child;
     }
 }
