@@ -4,26 +4,17 @@ using UnityEngine;
 
 public class Bullet_Behaviour : MonoBehaviour
 {
+
+
+
     private void OnCollisionEnter(Collision collision)
     {
-        Transform topLevelParent = FindTopLevelParent(collision.gameObject.transform);
-        if (topLevelParent.gameObject.GetComponent<EnemyAI>() != null)
+        if (collision.gameObject.GetComponent<Enemy_Damageable>() != null)
         {
-            topLevelParent.gameObject.GetComponent<EnemyAI>().EnemyHealth -= 1;
+            collision.gameObject.GetComponent<Enemy_Damageable>().Damaged();
+            
             Destroy(gameObject);
+
         }
-
-    }
-
-    private Transform FindTopLevelParent(Transform child)
-    {
-        Transform parent = child.parent;
-
-        while (parent != null)
-        {
-            child = parent;
-            parent = child.parent;
-        }
-        return child;
     }
 }
