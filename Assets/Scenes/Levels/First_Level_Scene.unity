@@ -27611,7 +27611,9 @@ MonoBehaviour:
   positionsData:
   - {fileID: 377848459}
   - {fileID: 285954175}
+  - {fileID: 1136027050}
   - {fileID: 112743734}
+  - {fileID: 173822835}
   kills: 0
   zombieTypes:
   - {fileID: 1257641920906484625, guid: 73b1282977287654bbe0723b1cd3c7f6, type: 3}

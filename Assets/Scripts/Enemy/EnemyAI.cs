@@ -53,6 +53,7 @@ public class EnemyAI : MonoBehaviour
             EnemyNav.isStopped = true;
             animator.SetTrigger("IsDead");
             animator.SetBool("IsDeadBool", true);
+            Player.GetComponent<PathTracking_Behaviour>().kills += 1;
         }
 
         if (EnemyNav.isOnOffMeshLink != DebugOffmeshLink)
