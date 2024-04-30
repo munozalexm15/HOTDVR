@@ -7,6 +7,8 @@ using UnityEngine;
 using static UnityEngine.Random;
 using static UnityEngine.GraphicsBuffer;
 using Unity.XR.CoreUtils;
+using UnityEngine.AI;
+using Unity.AI.Navigation;
 
 public class PathTracking_Behaviour : MonoBehaviour
 {
@@ -39,6 +41,8 @@ public class PathTracking_Behaviour : MonoBehaviour
     public List<GameObject> zombieTypes;
 
     private Coroutine spawnCoroutine;
+
+    public NavMeshSurface navigationMesh;
 
     private float step;
 
@@ -79,7 +83,6 @@ public class PathTracking_Behaviour : MonoBehaviour
             
         }
     }
-
     public void Movement()
     {
         if (nextPosition.requirementArea.Equals(PositionData.requirement.TIMED))
@@ -191,8 +194,9 @@ public class PathTracking_Behaviour : MonoBehaviour
         zombie.transform.position = enemySpawnData.spawnPoint.position;
         zombie.transform.rotation = enemySpawnData.spawnPoint.rotation;
         zombie.GetComponent<EnemyAI>().Player = playerPosition.gameObject;
-        zombie.GetComponent<EnemyAI>().jumpSpeed = 1;
-        zombie.GetComponent<EnemyAI>().walkSpeed = 1;
+        zombie.GetComponent<EnemyAI>().jumpSpeed = 1f;
+        zombie.GetComponent<EnemyAI>().walkSpeed = 0.1f;
+       
         zombie.GetComponent<Enemy_Damageable>().PlayerPath = this;
         zombie.GetComponent<Enemy_Damageable>().Health = Range(1, 10);
         

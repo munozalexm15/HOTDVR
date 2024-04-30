@@ -16,6 +16,7 @@ public class EnemyAI : MonoBehaviour
     private Animator animator;
     private bool DebugOffmeshLink;
     private Coroutine handsStatus;
+    private float defaultWalkSpeed;
 
     void Awake()
     {
@@ -27,16 +28,22 @@ public class EnemyAI : MonoBehaviour
     void Update()
     {
         float Distance = Vector3.Distance(Player.transform.position, Enemy.position);
+       
+        if (EnemyNav != null)
+        {
+            print(EnemyNav.destination + " " + Player.transform.position);
+            EnemyNav.SetDestination(Player.transform.position); 
+        }
 
-        if (Distance < 1.25f && handsStatus == null)
+        if (Distance < 1.25f && handsStatus == null && !animator.GetBool("IsDeadBool"))
         {
             animator.SetBool("Walk", false);
             animator.SetBool("Attack", true);
             handsStatus = StartCoroutine(FlashDamage());
         }
-        else if (!animator.GetBool("IsDeadBool") && EnemyNav != null)
+
+        else if (!animator.GetBool("IsDeadBool") && Distance > 1.25f)
         {
-            EnemyNav.SetDestination(Player.transform.position);
             animator.SetBool("Walk", true);
             animator.SetBool("Attack", false);
         }
@@ -57,14 +64,16 @@ public class EnemyAI : MonoBehaviour
 
     private void SetZombieSpeed()
     {
+        print(EnemyNav.speed);
+        defaultWalkSpeed = EnemyNav.speed;
         if (DebugOffmeshLink)
         {
             animator.SetTrigger("IsFalling");
-            EnemyNav.speed = jumpSpeed;
+            EnemyNav.speed = 1;
         }
         else
         {
-            EnemyNav.speed = walkSpeed;
+            EnemyNav.speed = defaultWalkSpeed;
             animator.SetTrigger("IsOnFloor");
         }
     }
@@ -73,7 +82,7 @@ public class EnemyAI : MonoBehaviour
         GameObject cameraOffset = Player.GetNamedChild("Camera Offset");
         GameObject leftHand = cameraOffset.GetNamedChild("Left Controller").GetNamedChild("LeftHand").GetNamedChild("Hand");
         Color handsMat = leftHand.GetComponent<SkinnedMeshRenderer>().material.color;
-        //GameObject rightHand = cameraOffset.GetNamedChild("Right Controller").GetNamedChild("RightHand").GetNamedChild("Hand");
+        GameObject rightHand = cameraOffset.GetNamedChild("Right Controller").GetNamedChild("RightHand").GetNamedChild("Hand");
         
         Player.GetComponent<PlayerHealth_Behavior>().health -= 1;
         
@@ -81,14 +90,24 @@ public class EnemyAI : MonoBehaviour
         {
             leftHand.GetComponent<SkinnedMeshRenderer>().material.color = Color.red;
         }
-       
+
+        if (rightHand)
+        {
+            rightHand.GetComponent<SkinnedMeshRenderer>().material.color = Color.red;
+        }
+
         yield return new WaitForSeconds(1f);
 
         if (leftHand)
         {
             leftHand.GetComponent<SkinnedMeshRenderer>().material.color = handsMat;
         }
-        
+
+        if (rightHand)
+        {
+            rightHand.GetComponent<SkinnedMeshRenderer>().material.color = handsMat;
+        }
+
         handsStatus = null;
       
        
