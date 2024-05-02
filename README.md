@@ -12,3 +12,5 @@ House of the dead Re-Imagination in VR
 - Hurt sound effect when player is hit
 - Zombie hurt and dead sound
 - Pickup sound effect
+
+- Background music
