@@ -31,7 +31,6 @@ public class EnemyAI : MonoBehaviour
        
         if (EnemyNav != null)
         {
-            print(EnemyNav.destination + " " + Player.transform.position);
             EnemyNav.SetDestination(Player.transform.position); 
         }
 
@@ -65,7 +64,6 @@ public class EnemyAI : MonoBehaviour
 
     private void SetZombieSpeed()
     {
-        print(EnemyNav.speed);
         defaultWalkSpeed = EnemyNav.speed;
         if (DebugOffmeshLink)
         {
