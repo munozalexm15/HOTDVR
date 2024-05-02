@@ -86,7 +86,8 @@ public class EnemyAI : MonoBehaviour
         GameObject rightHand = cameraOffset.GetNamedChild("Right Controller").GetNamedChild("RightHand").GetNamedChild("Hand");
         
         Player.GetComponent<PlayerHealth_Behavior>().health -= 1;
-        
+        Player.GetComponent<PlayerHealth_Behavior>().hud_health.text =  "HEALTH: " + Player.GetComponent<PlayerHealth_Behavior>().health;
+
         if (leftHand)
         {
             leftHand.GetComponent<SkinnedMeshRenderer>().material.color = Color.red;

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,6 +12,7 @@ public class PlayerHealth_Behavior : MonoBehaviour
 
     public GameObject leftHand;
     public GameObject rightHand;
+    public TMP_Text hud_health;
 
     public bool isHurt;
 
