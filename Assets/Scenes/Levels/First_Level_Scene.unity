@@ -1780,7 +1780,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 285954173}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.586, y: 0.441, z: 10.11}
+  m_LocalPosition: {x: 7.736, y: 0.441, z: 10.11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8312,6 +8312,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4886171248727939837}
     - target: {fileID: 3410706245786527813, guid: 66a7b70fbd827a2419744cce136f5f98, type: 3}
+      propertyPath: damage
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3410706245786527813, guid: 66a7b70fbd827a2419744cce136f5f98, type: 3}
       propertyPath: maxBulletSpread
       value: 0.075
       objectReference: {fileID: 0}
@@ -9289,6 +9293,10 @@ PrefabInstance:
     - target: {fileID: 3726620312217355774, guid: 7bbdfa9a223de804ba75c8231f6ccd38, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4557388035148502217, guid: 7bbdfa9a223de804ba75c8231f6ccd38, type: 3}
+      propertyPath: damage
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 4557388035148502217, guid: 7bbdfa9a223de804ba75c8231f6ccd38, type: 3}
       propertyPath: maxBulletSpread
@@ -11168,6 +11176,10 @@ PrefabInstance:
     - target: {fileID: 1506101562441441966, guid: d6df64f80a3859e48b45cf6ee3c37254, type: 3}
       propertyPath: m_Name
       value: M4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1525291120522719163, guid: d6df64f80a3859e48b45cf6ee3c37254, type: 3}
+      propertyPath: damage
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 1525291120522719163, guid: d6df64f80a3859e48b45cf6ee3c37254, type: 3}
       propertyPath: isReloading

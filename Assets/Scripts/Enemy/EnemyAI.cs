@@ -17,12 +17,14 @@ public class EnemyAI : MonoBehaviour
     private bool DebugOffmeshLink;
     private Coroutine handsStatus;
     private float defaultWalkSpeed;
+    public Coroutine enemyDamagedStatus;
 
     void Awake()
     {
         animator = GetComponent<Animator>();
         DebugOffmeshLink = EnemyNav.isOnOffMeshLink;
         SetZombieSpeed();
+        enemyDamagedStatus = null;
     }
 
     void Update()
@@ -109,8 +111,18 @@ public class EnemyAI : MonoBehaviour
         }
 
         handsStatus = null;
-      
+    }
+
+    public IEnumerator FlashDamageZombie()
+    {
        
+        Color zombieMaterial = GetComponentInChildren<SkinnedMeshRenderer>().material.color;
+        GetComponentInChildren<SkinnedMeshRenderer>().material.color = Color.red;
+
+        yield return new WaitForSeconds(0.25f);
+
+        GetComponentInChildren<SkinnedMeshRenderer>().material.color = zombieMaterial;
+        enemyDamagedStatus = null;
     }
 
 }

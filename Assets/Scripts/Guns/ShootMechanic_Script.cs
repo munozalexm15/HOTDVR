@@ -128,11 +128,10 @@ public class ShootMechanic_Script : MonoBehaviour
             return;
         }
 
-
-        //Actually made for a semi-auto weapon, it might change later if we implement full auto weapons
-
         GameObject spawnedBullet = Instantiate(bulletModel, spawnPoint.position, spawnPoint.rotation);
-
+        
+        spawnedBullet.GetComponent<Bullet_Behaviour>().bulletDamage = gunData.damage;
+        
         //Add bullet spread
         spawnedBullet.GetComponent<Rigidbody>().velocity = new Vector3(UnityEngine.Random.Range(-bulletSpread, bulletSpread) + spawnPoint.forward.x, UnityEngine.Random.Range(-bulletSpread, bulletSpread) + spawnPoint.forward.y, UnityEngine.Random.Range(-bulletSpread, bulletSpread) + spawnPoint.forward.z) * gunData.bulletSpeed;
 
