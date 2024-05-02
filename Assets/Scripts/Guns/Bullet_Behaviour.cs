@@ -22,7 +22,6 @@ public class Bullet_Behaviour : MonoBehaviour
             {
                 topLevelParent.gameObject.GetComponent<EnemyAI>().enemyDamagedStatus = topLevelParent.gameObject.GetComponent<EnemyAI>().StartCoroutine("FlashDamageZombie");
             }
-            print(topLevelParent.gameObject.GetComponent<EnemyAI>().EnemyHealth + " " + bulletDamage);
             topLevelParent.gameObject.GetComponent<EnemyAI>().EnemyHealth -= bulletDamage;
             Destroy(gameObject);
         }
