@@ -2,8 +2,13 @@
 House of the dead Re-Imagination in VR
 
 ## TODO
-- Add Custom hands with XR (https://www.youtube.com/watch?v=DLXLT6YCD6c) [X]
 
-- Add Weapons and create hand poser (https://www.youtube.com/watch?v=JdspLj4fZlI&ab_channel=ValemTutorials, https://www.youtube.com/watch?v=fgsx8q0RbGU) [ HandPoser done, fix (possible?) offset bug]
+### ADD SOUNDS (List)
 
-- OTHER: https://www.youtube.com/watch?v=f_jHGNxwN2g
+- Footsteps
+- Zombie noises
+- Pistol, AR and AK bullet sounds
+- Reload sound effect for each weapon
+- Hurt sound effect when player is hit
+- Zombie hurt and dead sound
+- Pickup sound effect
