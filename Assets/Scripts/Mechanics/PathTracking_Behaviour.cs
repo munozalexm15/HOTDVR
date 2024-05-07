@@ -98,7 +98,7 @@ public class PathTracking_Behaviour : MonoBehaviour
             if (timeInPos <= 0)
             {
                 startedWave = false;
-               
+                gameObject.GetComponent<AudioSource>().Play();
                 MoveToNextPos();
             }
         }
@@ -109,6 +109,7 @@ public class PathTracking_Behaviour : MonoBehaviour
         if (kills >= nextPosition.requirementTask)
         {
             startedWave = false;
+            gameObject.GetComponent<AudioSource>().Play();
             MoveToNextPos();
         }
     }
@@ -120,8 +121,11 @@ public class PathTracking_Behaviour : MonoBehaviour
         var movementSpeed = evaluatePos(step);
         playerPosition.position = Vector3.Lerp(playerPosition.position, nextPosition.position.position, movementSpeed);
 
+        
+
         if (Vector3.Distance(playerPosition.position, nextPosition.position.position) < 0.001f)
         {
+            gameObject.GetComponent<AudioSource>().Stop();
             step = 0;
             nextPosIndex += 1;
             if (nextPosIndex < positionsData.Count)

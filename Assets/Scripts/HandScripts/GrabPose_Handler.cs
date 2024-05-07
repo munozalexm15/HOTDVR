@@ -48,6 +48,7 @@ public class GrabPose_Handler : MonoBehaviour
             {
                 SetHandDataValues(handData, rightHandPose);
                 actualHand = "RIGHT";
+
             }
             else
             {
@@ -55,7 +56,10 @@ public class GrabPose_Handler : MonoBehaviour
                 SetHandDataValues(handData, leftHandPose);
             }
 
-           StartCoroutine( setHandDataCoRoutine(handData, endingHandPosition, endingHandRotation, endingFingerRotations, startingHandPosition, startingHandRotation, startingFingerRotations));
+            AudioSource handAudio = args.interactorObject.transform.GetComponentInChildren<AudioSource>();
+            handAudio.Play();
+
+            StartCoroutine( setHandDataCoRoutine(handData, endingHandPosition, endingHandRotation, endingFingerRotations, startingHandPosition, startingHandRotation, startingFingerRotations));
         }
     }
 

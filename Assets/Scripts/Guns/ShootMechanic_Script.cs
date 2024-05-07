@@ -129,7 +129,7 @@ public class ShootMechanic_Script : MonoBehaviour
         }
 
         GameObject spawnedBullet = Instantiate(bulletModel, spawnPoint.position, spawnPoint.rotation);
-        
+        gameObject.GetComponent<AudioSource>().PlayOneShot(gunData.fireSound);
         spawnedBullet.GetComponent<Bullet_Behaviour>().bulletDamage = gunData.damage;
         
         //Add bullet spread
@@ -160,6 +160,7 @@ public class ShootMechanic_Script : MonoBehaviour
 
     public IEnumerator reloadWeapon()
     {
+        gameObject.GetComponent<AudioSource>().PlayOneShot(gunData.reloadSound);
         float lerp = Mathf.PingPong(Time.time, gunData.reloadTime) / gunData.reloadTime;
         gunData.isReloading = true;
         weaponAmmoIndicator.SetText("Rel");
@@ -172,7 +173,7 @@ public class ShootMechanic_Script : MonoBehaviour
             gunParts[i].SetActive(false);
         }
         //before reload
-        yield return new WaitForSeconds(gunData.reloadTime);
+        yield return new WaitForSeconds(gunData.reloadSound.length);
 
         //after reload
         //GetComponent<Renderer>().material.Lerp(reloadMaterial, gunMaterial, lerp);

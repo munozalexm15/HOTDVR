@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.AI;
@@ -19,12 +20,21 @@ public class EnemyAI : MonoBehaviour
     private float defaultWalkSpeed;
     public Coroutine enemyDamagedStatus;
 
+    public AudioSource walkingAudio;
+    public AudioSource zombieAudio;
+
+    public List<AudioClip> enemyGroanSounds;
+
+    public AudioClip enemyDeadSound;
+    public AudioClip enemyWalkSound;
+
     void Awake()
     {
         animator = GetComponent<Animator>();
         DebugOffmeshLink = EnemyNav.isOnOffMeshLink;
         SetZombieSpeed();
         enemyDamagedStatus = null;
+        StartCoroutine(ZombieGrunt());
     }
 
     void Update()
@@ -33,7 +43,8 @@ public class EnemyAI : MonoBehaviour
        
         if (EnemyNav != null)
         {
-            EnemyNav.SetDestination(Player.transform.position); 
+            EnemyNav.SetDestination(Player.transform.position);
+            walkingAudio.Play();
         }
 
         if (Distance < 1.25f && handsStatus == null && !animator.GetBool("IsDeadBool"))
@@ -51,10 +62,13 @@ public class EnemyAI : MonoBehaviour
 
         if (EnemyHealth <= 0 && !animator.GetBool("IsDeadBool"))
         {
+            zombieAudio.PlayOneShot(enemyDeadSound);
+
             EnemyNav.isStopped = true;
             animator.SetTrigger("IsDead");
             animator.SetBool("IsDeadBool", true);
             Player.GetComponent<PathTracking_Behaviour>().kills += 1;
+
         }
 
         if (EnemyNav.isOnOffMeshLink != DebugOffmeshLink)
@@ -88,6 +102,8 @@ public class EnemyAI : MonoBehaviour
         Player.GetComponent<PlayerHealth_Behavior>().health -= 1;
         Player.GetComponent<PlayerHealth_Behavior>().hud_health.text =  "HEALTH: " + Player.GetComponent<PlayerHealth_Behavior>().health;
 
+        Player.GetComponent<AudioSource>().PlayOneShot(Player.GetComponent<PlayerHealth_Behavior>().hurtSound);
+
         if (leftHand)
         {
             leftHand.GetComponent<SkinnedMeshRenderer>().material.color = Color.red;
@@ -111,6 +127,25 @@ public class EnemyAI : MonoBehaviour
         }
 
         handsStatus = null;
+    }
+
+    public IEnumerator ZombieGrunt()
+    {
+        if (EnemyHealth > 0)
+        {
+            int randomPos = Random.Range(0, enemyGroanSounds.Count);
+
+            AudioClip sound = enemyGroanSounds[randomPos];
+            zombieAudio.PlayOneShot(sound);
+
+
+            yield return new WaitForSeconds(sound.length + randomPos * 2);
+
+            if (EnemyHealth > 0)
+            {
+                StartCoroutine(ZombieGrunt());
+            } 
+        }
     }
 
     public IEnumerator FlashDamageZombie()

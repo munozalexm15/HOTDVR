@@ -22,5 +22,8 @@ public class GunData : MonoBehaviour
     public string RightHandTriggerPull;
     public string LeftHandTriggerPull;
 
+    public AudioClip fireSound;
+    public AudioClip reloadSound;
+
     
 }

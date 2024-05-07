@@ -16,6 +16,8 @@ public class PlayerHealth_Behavior : MonoBehaviour
 
     public bool isHurt;
 
+    public AudioClip hurtSound;
+
     // Start is called before the first frame update
     void Start()
     {
