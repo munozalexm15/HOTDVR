@@ -80,7 +80,6 @@ public class PathTracking_Behaviour : MonoBehaviour
             {
                 SpawnZombies();
             }
-            
         }
     }
     public void Movement()
@@ -91,7 +90,6 @@ public class PathTracking_Behaviour : MonoBehaviour
             {
                 timeInPos = nextPosition.requirementTask;
                 isMoving = true;
-                
             }
 
             timeInPos--;
@@ -206,6 +204,5 @@ public class PathTracking_Behaviour : MonoBehaviour
         zombie.GetComponent<Enemy_Damageable>().Health = Range(1, 10);
         
         nextPosition.enemiesSpawned.Add(zombie);
-
     }
 }
