@@ -9,6 +9,7 @@ using static UnityEngine.GraphicsBuffer;
 using Unity.XR.CoreUtils;
 using UnityEngine.AI;
 using Unity.AI.Navigation;
+using UnityEngine.SceneManagement;
 
 public class PathTracking_Behaviour : MonoBehaviour
 {
@@ -121,8 +122,6 @@ public class PathTracking_Behaviour : MonoBehaviour
         var movementSpeed = evaluatePos(step);
         playerPosition.position = Vector3.Lerp(playerPosition.position, nextPosition.position.position, movementSpeed);
 
-        
-
         if (Vector3.Distance(playerPosition.position, nextPosition.position.position) < 0.001f)
         {
             gameObject.GetComponent<AudioSource>().Stop();
@@ -141,7 +140,10 @@ public class PathTracking_Behaviour : MonoBehaviour
                 isMoving = false;
                 kills = 0;
             }
-
+            if (nextPosIndex >= positionsData.Count)
+            {
+                SceneManager.LoadScene("1 Start Scene");
+            }
         }
     }
 

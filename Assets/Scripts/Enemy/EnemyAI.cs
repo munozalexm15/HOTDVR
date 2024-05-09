@@ -136,10 +136,14 @@ public class EnemyAI : MonoBehaviour
             int randomPos = Random.Range(0, enemyGroanSounds.Count);
 
             AudioClip sound = enemyGroanSounds[randomPos];
-            zombieAudio.PlayOneShot(sound);
+
+            int randomVolume = Random.Range(50, 100);
+            zombieAudio.volume = randomVolume;
+            
 
 
             yield return new WaitForSeconds(sound.length + randomPos * 2);
+            zombieAudio.PlayOneShot(sound);
 
             if (EnemyHealth > 0)
             {
