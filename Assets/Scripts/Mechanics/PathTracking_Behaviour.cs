@@ -71,7 +71,6 @@ public class PathTracking_Behaviour : MonoBehaviour
             {
                 SpawnZombies();
             }
-
         }
         if (nextPosition.requirementArea == PositionData.requirement.KILLS)
         {

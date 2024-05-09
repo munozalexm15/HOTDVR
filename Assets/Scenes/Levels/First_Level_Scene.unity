@@ -6900,15 +6900,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0d4c734ae529e484f9069a6a8a10cc79, type: 3}
       propertyPath: m_LocalScale.x
-      value: 400
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0d4c734ae529e484f9069a6a8a10cc79, type: 3}
       propertyPath: m_LocalScale.y
-      value: 400
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0d4c734ae529e484f9069a6a8a10cc79, type: 3}
       propertyPath: m_LocalScale.z
-      value: 400
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0d4c734ae529e484f9069a6a8a10cc79, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6920,7 +6920,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0d4c734ae529e484f9069a6a8a10cc79, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -11.53
+      value: -10.59
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0d4c734ae529e484f9069a6a8a10cc79, type: 3}
       propertyPath: m_LocalRotation.w
@@ -28111,7 +28111,6 @@ MonoBehaviour:
   zombieTypes:
   - {fileID: 1257641920906484625, guid: 73b1282977287654bbe0723b1cd3c7f6, type: 3}
   navigationMesh: {fileID: 0}
-  nextLevel: AnimationsScene
 --- !u!114 &8575046591651070675
 MonoBehaviour:
   m_ObjectHideFlags: 0
