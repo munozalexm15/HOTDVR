@@ -255,55 +255,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f1ab10801899f65479466f8d399bca9b, type: 3}
   m_PrefabInstance: {fileID: 10830280}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &24168560
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 24168561}
-  - component: {fileID: 24168562}
-  m_Layer: 0
-  m_Name: ZombieSpawnPos2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &24168561
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 24168560}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.202, y: 0.42000002, z: -4.563}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1136027049}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &24168562
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 24168560}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76f232e4f65e35741a8bef8e3ff7b97f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnPoint: {fileID: 24168561}
-  minSpawnTimeInterval: 2
-  maxSpawnTimeInterval: 6
-  spawnCount: 0
-  MaxSpawnedZombies: 3
 --- !u!1001 &27320949
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -649,55 +600,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f710aa0c1a638a04eb73d41fcce6ecdc, type: 3}
   m_PrefabInstance: {fileID: 100916194}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &112743732
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 112743733}
-  - component: {fileID: 112743734}
-  m_Layer: 0
-  m_Name: Pos2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &112743733
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 112743732}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.87, y: 0, z: -11.23}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 551415255}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &112743734
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 112743732}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7659544a4e16e6840b89b011c54a16ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  position: {fileID: 112743733}
-  requirementArea: 0
-  requirementTask: 10
-  enemyWaves: 1
-  enemiesSpawned: []
 --- !u!114 &124530931 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6766910295942714439, guid: b84cd05e1160fe34cab2585022c8cd99, type: 3}
@@ -881,55 +783,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5765d2edeb3763a49aaf606c9f53b337, type: 3}
   m_PrefabInstance: {fileID: 155656579}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &173822833
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 173822834}
-  - component: {fileID: 173822835}
-  m_Layer: 0
-  m_Name: EndPos
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &173822834
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 173822833}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.35, y: 0, z: -9.26}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 551415255}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &173822835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 173822833}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7659544a4e16e6840b89b011c54a16ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  position: {fileID: 173822834}
-  requirementArea: 0
-  requirementTask: 10
-  enemyWaves: 1
-  enemiesSpawned: []
 --- !u!1001 &175028860
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1753,9 +1606,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   position: {fileID: 285954174}
-  requirementArea: 1
-  requirementTask: 2
-  enemyWaves: 1
+  requirementArea: 0
+  requirementTask: 1000
+  enemyWaves: 5
   enemiesSpawned: []
 --- !u!1001 &300185386
 PrefabInstance:
@@ -2270,7 +2123,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 377848457}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.508, y: 0.43, z: 5.448}
+  m_LocalPosition: {x: -9, y: 0.43, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3729,9 +3582,6 @@ Transform:
   m_Children:
   - {fileID: 377848458}
   - {fileID: 285954174}
-  - {fileID: 1136027049}
-  - {fileID: 112743733}
-  - {fileID: 173822834}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6969,58 +6819,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f710aa0c1a638a04eb73d41fcce6ecdc, type: 3}
   m_PrefabInstance: {fileID: 1131195235}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1136027048
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1136027049}
-  - component: {fileID: 1136027050}
-  m_Layer: 0
-  m_Name: Pos1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1136027049
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1136027048}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 15.51, y: 0.43, z: 6.61}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1281110935}
-  - {fileID: 24168561}
-  - {fileID: 1849193548}
-  m_Father: {fileID: 551415255}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1136027050
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1136027048}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7659544a4e16e6840b89b011c54a16ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  position: {fileID: 1136027049}
-  requirementArea: 1
-  requirementTask: 7
-  enemyWaves: 3
-  enemiesSpawned: []
 --- !u!1001 &1138451397
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8737,55 +8535,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f710aa0c1a638a04eb73d41fcce6ecdc, type: 3}
   m_PrefabInstance: {fileID: 1269259584}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1281110934
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1281110935}
-  - component: {fileID: 1281110936}
-  m_Layer: 0
-  m_Name: ZombieSpawnPos
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1281110935
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1281110934}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.47, y: -0.43, z: 11.47}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1136027049}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1281110936
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1281110934}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76f232e4f65e35741a8bef8e3ff7b97f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnPoint: {fileID: 1281110935}
-  minSpawnTimeInterval: 2
-  maxSpawnTimeInterval: 6
-  spawnCount: 0
-  MaxSpawnedZombies: 3
 --- !u!1001 &1282282289
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11896,55 +11645,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f710aa0c1a638a04eb73d41fcce6ecdc, type: 3}
   m_PrefabInstance: {fileID: 1836983240}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1849193547
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1849193548}
-  - component: {fileID: 1849193549}
-  m_Layer: 0
-  m_Name: ZombieSpawnPos2 (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1849193548
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1849193547}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -13.23, y: 0.42000002, z: -6.95}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1136027049}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1849193549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1849193547}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76f232e4f65e35741a8bef8e3ff7b97f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnPoint: {fileID: 1849193548}
-  minSpawnTimeInterval: 2
-  maxSpawnTimeInterval: 6
-  spawnCount: 0
-  MaxSpawnedZombies: 1
 --- !u!1001 &1859621158
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30183,9 +29883,9 @@ MonoBehaviour:
   positionsData:
   - {fileID: 377848459}
   - {fileID: 285954175}
-  - {fileID: 1136027050}
-  - {fileID: 112743734}
-  - {fileID: 173822835}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   kills: 0
   zombieTypes:
   - {fileID: 1257641920906484625, guid: 73b1282977287654bbe0723b1cd3c7f6, type: 3}
