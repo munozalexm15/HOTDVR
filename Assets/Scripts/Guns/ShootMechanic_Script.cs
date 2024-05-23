@@ -36,57 +36,104 @@ public class ShootMechanic_Script : MonoBehaviour
 
     public Transform crosshairTransform;
 
+    public ActionBasedController LeftController;
+    public ActionBasedController RightController;
+
+    private Coroutine _current;
+
+    private float bulletSpread;
+
+    ActivateEventArgs activateEventArgs;
+
+    private bool isShooting;
+
+    private float lastfired;
+
     void Start()
     {
-        
-        XRGrabInteractable grabbable = GetComponent<XRGrabInteractable>();
-        grabbable.activated.AddListener(FireBullet);
-        grabbable.selectExited.AddListener(HideAmmo);
-        grabbable.selectEntered.AddListener(ShowAmmo);
-
+        bulletSpread = 0;
+        isShooting = false;
         gunData = GetComponent<GunData>();
         actualHand = GetComponent<GrabPose_Handler>().actualHand;
+        XRGrabInteractable grabbable = GetComponent<XRGrabInteractable>();
+        
+        if (!gunData.isAutomatic)
+        {
+            grabbable.activated.AddListener(FireBullet);
+        }
+        else
+        {
+            grabbable.activated.AddListener(FullAutoShoot);
+            grabbable.deactivated.AddListener(StopShooting);
+
+        }
+      
+        grabbable.selectExited.AddListener(HideAmmo);
+        grabbable.selectEntered.AddListener(ShowAmmo);
 
     }
 
     void Update()
     {
         Crosshair_ResetSize();
+
+        if (isShooting)
+        {
+            if (Time.time - lastfired > 1 / gunData.firerate)
+            {
+                lastfired = Time.time;
+                FireBullet(activateEventArgs);
+            }
+        }
     }
 
+    public void StopShooting(DeactivateEventArgs args)
+    {
+        isShooting = false;
+    }
+
+    public void FullAutoShoot(ActivateEventArgs args)
+    {
+        isShooting = true;
+        activateEventArgs = args;
+    }
 
     public void FireBullet(ActivateEventArgs args)
     {
+        
         if (gunData.isReloading)
         {
             return;
         }
-        actualHand = GetComponent<GrabPose_Handler>().actualHand;
 
         if (gunData.bulletsInMagazine <= 0)
         {
+      
             StartCoroutine(reloadWeapon());
             return;
         }
+
+        actualHand = GetComponent<GrabPose_Handler>().actualHand;
+
+        //BUG: Mirar tema de la rotacion del arma o de la mano para que dependa de su rotacion local --- Manual Reload (Force player to put the gun in an almost 90 degree angle and press shoot to reload)
+        if (actualHand == "LEFT" && LeftController.transform.localRotation.x <= -0.7)
+        {
+           
+            StartCoroutine(reloadWeapon());
+            return;
+        }
+        else if (actualHand == "RIGHT" && RightController.transform.localRotation.x <= -0.7)
+        {
+            StartCoroutine(reloadWeapon());
+            return;
+        }
+
+        GameObject spawnedBullet = Instantiate(bulletModel, spawnPoint.position, spawnPoint.rotation);
+        gameObject.GetComponent<AudioSource>().PlayOneShot(gunData.fireSound);
+        spawnedBullet.GetComponent<Bullet_Behaviour>().bulletDamage = gunData.damage;
         
-        //Manual Reload (Force player to put the gun in an almost 90 degree angle and press shoot to reload)
-        else if (actualHand == "LEFT" && leftHandPose_XR.transform.rotation.x <= 0.09)
-        {
-            StartCoroutine(reloadWeapon());
-            return;
-        }
-        else if (actualHand == "RIGHT" && rightHandPose_XR.transform.rotation.x <= 0.09)
-        {
-            StartCoroutine(reloadWeapon());
-            return;
-        }
-
-
-            //Actually made for a semi-auto weapon, it might change later if we implement full auto weapons
-
-            GameObject spawnedBullet = Instantiate(bulletModel);
-        spawnedBullet.transform.position = spawnPoint.position;
-        spawnedBullet.GetComponent<Rigidbody>().velocity = spawnPoint.forward * gunData.bulletSpeed;
+        //Add bullet spread
+        spawnedBullet.GetComponent<Rigidbody>().velocity = new Vector3(UnityEngine.Random.Range(-bulletSpread, bulletSpread) + spawnPoint.forward.x, UnityEngine.Random.Range(-bulletSpread, bulletSpread) + spawnPoint.forward.y, UnityEngine.Random.Range(-bulletSpread, bulletSpread) + spawnPoint.forward.z) * gunData.bulletSpeed;
 
         if (actualHand.Equals("LEFT"))
         {
@@ -113,6 +160,7 @@ public class ShootMechanic_Script : MonoBehaviour
 
     public IEnumerator reloadWeapon()
     {
+        gameObject.GetComponent<AudioSource>().PlayOneShot(gunData.reloadSound);
         float lerp = Mathf.PingPong(Time.time, gunData.reloadTime) / gunData.reloadTime;
         gunData.isReloading = true;
         weaponAmmoIndicator.SetText("Rel");
@@ -125,7 +173,7 @@ public class ShootMechanic_Script : MonoBehaviour
             gunParts[i].SetActive(false);
         }
         //before reload
-        yield return new WaitForSeconds(gunData.reloadTime);
+        yield return new WaitForSeconds(gunData.reloadSound.length);
 
         //after reload
         //GetComponent<Renderer>().material.Lerp(reloadMaterial, gunMaterial, lerp);
@@ -149,7 +197,6 @@ public class ShootMechanic_Script : MonoBehaviour
             StartCoroutine(reloadWeapon());
         }
         crosshairTransform.gameObject.SetActive(true);
-
     }
 
 
@@ -171,7 +218,13 @@ public class ShootMechanic_Script : MonoBehaviour
 
     public void Crosshair_MakeBigger()
     {
-        crosshairTransform.localScale += new Vector3(0.1f, 0.1f, 0.1f);
+       
+        if (bulletSpread < gunData.maxBulletSpread)
+        {
+            bulletSpread += 0.05f;
+            crosshairTransform.localScale += new Vector3(0.1f, 0.1f, 0.1f);
+        }
+        
     }
 
     public void Crosshair_ResetSize()
@@ -179,6 +232,12 @@ public class ShootMechanic_Script : MonoBehaviour
         if (crosshairTransform.localScale.x > 0.2)
         {
             crosshairTransform.localScale -= new Vector3(0.01f, 0.01f, 0.01f);
+           
         }
+        if (bulletSpread > 0)
+        {
+            bulletSpread -= 0.005f;
+        }
+        
     }
 }

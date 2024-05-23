@@ -5,13 +5,15 @@ using UnityEngine;
 public class Enemy_Damageable : MonoBehaviour
 {
 
-    public float Health = 1;
+    public float Health;
+
+    public Material zombieMaterial;
 
     public PathTracking_Behaviour PlayerPath;
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(waitToSuicide());
+
     }
 
     // Update is called once per frame
@@ -23,10 +25,21 @@ public class Enemy_Damageable : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    IEnumerator waitToSuicide()
+
+    public IEnumerator FlashDamage()
     {
-        yield return new WaitForSeconds(4);
-        PlayerPath.kills += 1;
-        Destroy(gameObject);
+
+        GetComponentInChildren<SkinnedMeshRenderer>().material.color = Color.red;
+
+        yield return new WaitForSeconds(0.25f);
+
+        GetComponentInChildren<SkinnedMeshRenderer>().material = zombieMaterial;
+    }
+
+    public void Damaged()
+    {
+        Health -= 1;
+
+        StartCoroutine(FlashDamage());
     }
 }
