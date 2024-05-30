@@ -108,7 +108,6 @@ public class Grenade_Behaviour : XRGrabInteractable
                     collList[i].gameObject.GetComponent<EnemyAI>().EnemyHealth = 0;
                     Destroy(collList[i]);
                     player_Data.kills += 1;
-                    print(player_Data.kills);
                 }
                 if (collList[i].TryGetComponent(out Rigidbody rb))
                 {
