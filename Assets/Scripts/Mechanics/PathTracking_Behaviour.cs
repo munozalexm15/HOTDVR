@@ -49,8 +49,6 @@ public class PathTracking_Behaviour : MonoBehaviour
 
     private bool startedWave;
 
-    public string nextLevelName;
-
 
     void Start()
     {
@@ -141,7 +139,7 @@ public class PathTracking_Behaviour : MonoBehaviour
             }
             if (nextPosIndex >= positionsData.Count)
             {
-                SceneManager.LoadScene(nextLevelName);
+                SceneTransitionManager.singleton.GoToSceneAsync(2);
             }
         }
     }
