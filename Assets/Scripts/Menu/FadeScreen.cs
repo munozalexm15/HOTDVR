@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FadeScreen : MonoBehaviour
@@ -13,6 +14,15 @@ public class FadeScreen : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
+    {
+        rend = GetComponent<Renderer>();
+        rend.enabled = false;
+
+        if (fadeOnStart)
+            FadeIn();
+    }
+
+    private void Awake()
     {
         rend = GetComponent<Renderer>();
         rend.enabled = false;
