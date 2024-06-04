@@ -139,7 +139,17 @@ public class PathTracking_Behaviour : MonoBehaviour
             }
             if (nextPosIndex >= positionsData.Count)
             {
-                SceneTransitionManager.singleton.GoToSceneAsync(2);
+
+                if (SceneManager.GetActiveScene().buildIndex != 2)
+                {
+                    SceneTransitionManager.singleton.GoToSceneAsync(2);
+                }
+
+                else
+                {
+                    UnityEditor.EditorApplication.isPlaying = false;
+                }
+                
             }
         }
     }

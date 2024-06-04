@@ -30195,7 +30195,6 @@ MonoBehaviour:
   zombieTypes:
   - {fileID: 1257641920906484625, guid: 73b1282977287654bbe0723b1cd3c7f6, type: 3}
   navigationMesh: {fileID: 2044129888}
-  nextLevelName: Second_Level_Scene
 --- !u!114 &8575046591651070675
 MonoBehaviour:
   m_ObjectHideFlags: 0
