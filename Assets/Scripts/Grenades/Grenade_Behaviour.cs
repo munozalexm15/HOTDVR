@@ -13,6 +13,7 @@ public class Grenade_Behaviour : XRGrabInteractable
     private bool IsRingPulled = false;
     private Transform initialTransform;
     public ParticleSystem explosionParticles;
+    public PathTracking_Behaviour player_Data;
 
     //For the explosion
     [SerializeField] float explosionForce;
@@ -102,11 +103,12 @@ public class Grenade_Behaviour : XRGrabInteractable
         {
             for (int i = 0; i < collList.Length; i++)
             {
-                if (collList[i].tag == "Enemy")
-                {
+                if (collList[i].tag == "Enemy") {
+
+                    collList[i].gameObject.GetComponent<EnemyAI>().EnemyHealth = 0;
                     Destroy(collList[i]);
+                    player_Data.kills += 1;
                 }
-                Debug.Log(collList[i].gameObject.name);
                 if (collList[i].TryGetComponent(out Rigidbody rb))
                 {
                     rb.AddExplosionForce(explosionForce, transform.position, explosionRadius, 3);
