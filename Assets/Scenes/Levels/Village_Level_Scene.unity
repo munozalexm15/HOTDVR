@@ -10141,8 +10141,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   position: {fileID: 841154969}
-  requirementArea: 0
-  requirementTask: 300
+  requirementArea: 1
+  requirementTask: 2
   enemyWaves: 3
   enemiesSpawned: []
 --- !u!1 &844989866
@@ -16115,7 +16115,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1334648020}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.12, y: 0.09, z: -11.88}
+  m_LocalPosition: {x: -31.16, y: 0.09, z: -18.31}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16433,7 +16433,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1369056574}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.5, y: 2.212, z: -11.221}
+  m_LocalPosition: {x: -11.18, y: 0.197, z: 17.73}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16454,7 +16454,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 1369056575}
   minSpawnTimeInterval: 1
-  maxSpawnTimeInterval: 2
+  maxSpawnTimeInterval: 3
   spawnCount: 0
   MaxSpawnedZombies: 3
 --- !u!1001 &1381059199
