@@ -84,11 +84,15 @@ public class EnemyAI : MonoBehaviour
         if (DebugOffmeshLink)
         {
             animator.SetTrigger("IsFalling");
-            EnemyNav.speed = 1;
+            EnemyNav.speed = jumpSpeed;
         }
         else
         {
-            EnemyNav.speed = defaultWalkSpeed;
+            if (EnemyNav.speed == jumpSpeed) {
+                EnemyNav.speed = walkSpeed;
+            } else {
+                EnemyNav.speed = defaultWalkSpeed;
+            }
             animator.SetTrigger("IsOnFloor");
         }
     }
